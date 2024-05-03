@@ -1,0 +1,80 @@
+.board-container {
+    margin-top: 20px;
+    background-color: #ffe6ed;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .board-title {
+    text-align: center;
+    color: white;
+  }
+  
+  .board-input-area {
+    margin-bottom: 10px;
+  }
+  
+  .board-input {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .board-button {
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .board-post {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .board-post {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .board-post h3 {
+    font-size: 18px;
+  }
+  
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .post-info {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .post-time {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .report-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline;
+    color: inherit;
+  }
+
+  .profile-img-min {
+    border-radius: 15%;
+    width: 80px; 
+    height: 80px; 
+    margin-bottom: 10px;
+  }

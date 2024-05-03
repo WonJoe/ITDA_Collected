@@ -1,0 +1,197 @@
+.Modal {
+    position: fixed;
+    z-index: 1000;
+    width: 600px;
+    max-width: 80%;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: pink;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+  
+  .Modal .popup {
+    text-align: center;
+  }
+  
+  .Modal h2 {
+    font-size: 25px;
+  }
+  
+  .Modal p {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .Modal p.reportInfo{
+    font-size: 15px;
+    margin-top: 5px;
+  }
+  
+  .Modal span {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  
+  .Modal span i {
+    font-size: 35px;
+  }
+  
+  .cursor{
+    cursor: pointer;
+  }
+  
+  .button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .button_red {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .button_green {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  
+  
+  .btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  
+  .button:hover {
+    background-color: #ffd700;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }
+
+  .button_green:hover {
+    background-color: #86d467;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }
+
+  .button_red:hover {
+    background-color: #f76868;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+  }
+  
+  .time {
+    width: 30px;
+  }
+
+.react-time-picker__wrapper {
+  width: 120px; 
+}
+
+.react-time-picker__inputGroup__input {
+  width: 50%; 
+}
+
+.profile-img {
+  border-radius: 50%;
+  width: 100px; 
+  height: 100px; 
+}
+
+.user-name {
+  margin-left: 27px; 
+}
+
+.user-ul {
+  display: flex; 
+  list-style-type: none; 
+  padding: 0; 
+}
+
+
+.user-li {
+  margin-right: 10px; 
+}
+
+.schedule-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.schedule-header, .schedule-row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.schedule-header span, .schedule-row span {
+  flex: 1;
+  padding: 10px;
+}
+
+.schedule-header span:nth-child(1),
+.schedule-row span:nth-child(1) {
+  flex-basis: 25%;
+}
+
+.schedule-header span:nth-child(2),
+.schedule-row span:nth-child(2) {
+  flex-basis: 15%;
+}
+
+.schedule-header span:nth-child(3),
+.schedule-row span:nth-child(3) {
+  flex-basis: 30%;
+}
+
+.schedule-header span:nth-child(4),
+.schedule-row span:nth-child(4) {
+  flex-basis: 25%
+}
+
+.schedule-header span:nth-child(5),
+.schedule-row span:nth-child(5) {
+  flex-basis: 25%
+}
+
+.schedule-header span:nth-child(6),
+.schedule-row span:nth-child(6) {
+  flex-basis: 30%
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}

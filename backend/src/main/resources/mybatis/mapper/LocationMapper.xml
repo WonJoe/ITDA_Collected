@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itda.backend.mapper.LocationMapper">
+
+<!-- 주소 유저정보에 담기 -->
+<update id="addressInput" parameterType="com.itda.backend.dto.UsersDTO">
+
+    update users set user_address = #{userAddress} where user_no = #{userNo}
+
+</update>
+
+
+
+<!-- 해당 정보 가져오기 -->
+<select id="getInfo" parameterType="com.itda.backend.dto.LocationSelectedDTO" resultType="com.itda.backend.dto.LocationDTO">
+    SELECT 
+        USER_NO as userNo,
+        ADDRESS,
+        ADJUSTED_LAT,
+        ADJUSTED_LNG,
+        CREATED_LOCATION_TIME,
+        LAT,
+        LNG,
+        CASE 
+            WHEN ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO IN <foreach collection="userNo" item="item" separator="," open="(" close=")">#{item}</foreach>) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO IN <foreach collection="userNo" item="item" separator="," open="(" close=")">#{item}</foreach>) - ADJUSTED_LNG) * 113, 2))) = 0 THEN 1
+            ELSE ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO IN <foreach collection="userNo" item="item" separator="," open="(" close=")">#{item}</foreach>) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO IN <foreach collection="userNo" item="item" separator="," open="(" close=")">#{item}</foreach>) - ADJUSTED_LNG) * 113, 2)))
+        END as distance 
+    FROM 
+        location
+</select>
+
+
+
+
+<!-- 거리순 매칭 -->
+<select id="getMatchingDistance" parameterType="Long" resultType="com.itda.backend.dto.LocationDTO">
+	SELECT 
+    USER_NO as userNo,
+    ADDRESS,
+    ADJUSTED_LAT,
+    ADJUSTED_LNG,
+    CREATED_LOCATION_TIME,
+    LAT,
+    LNG,
+	CASE 
+        WHEN ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2))) = 0 THEN 1
+        ELSE ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2)))
+    END as distance 
+	FROM 
+		location
+	WHERE 
+		USER_NO != #{userNo} 
+   		AND user_no NOT IN (SELECT selected FROM location_selected WHERE user_no = #{userNo})
+        AND user_no IN (select user_no from users where USER_GENDER != (SELECT USER_GENDER from users where user_no = #{userNo}))
+	ORDER BY 
+		SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2)) asc
+
+</select>
+
+<!-- 거리순 매칭 가능여부 확인 -->
+<select id="getMatchingDistanceNumber" parameterType="Long" resultType="com.itda.backend.dto.LocationDTO">
+	SELECT 
+    USER_NO as userNo
+	FROM 
+		location
+	WHERE 
+		USER_NO != #{userNo} 
+   		AND user_no NOT IN (SELECT selected FROM location_selected WHERE user_no = #{userNo})
+        AND user_no IN (select user_no from users where USER_GENDER != (SELECT USER_GENDER from users where user_no = #{userNo}))
+	ORDER BY 
+		SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91000, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113000, 2)) asc
+
+</select>
+
+<!-- 한번 매칭된거 저장 -->
+<insert id="selected" parameterType="map">
+    INSERT INTO location_selected (id,user_no, selected, created_selected_time)
+    VALUES ((SELECT NVL(MAX(id), 0) + 1 FROM location_selected),#{userNo}, #{selected}, sysdate)
+</insert>
+
+<!-- 매칭된사람들 조회(중복 매칭 방지) -->
+<select id="getMatchingData" parameterType="Long" resultType="com.itda.backend.dto.LocationSelectedDTO">
+	select SELECTED,CREATED_SELECTED_TIME 
+	from location_selected where USER_NO=#{userNo}
+</select>
+
+</mapper>

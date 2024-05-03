@@ -1,0 +1,62 @@
+.footer-desc {
+    font-size: 16px;
+    line-height: 1.75;
+    padding: 24px 40px;
+}
+
+.footer-desc h1 {
+    margin-bottom: 1.25rem;
+    font-size: 1.75rem;
+    font-weight: 1000;
+}
+
+.footer-desc h2 {
+    font-size: 1.4em;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+    color: #000;
+}
+
+.footer-desc h3 {
+    font-size: 1.2em;
+    margin-top: 2em;
+    margin-bottom: .5em;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.footer-desc blockquote, dd, dl, figure, h1, h2, h3, h4, h5, h6, hr, p, pre {
+    margin: 0;
+}
+
+.privacy-policy-table th {
+    word-break: keep-all;
+    border-width: 1px;
+    padding: .5rem;
+}
+table {
+    text-indent: 0;
+    border-color: inherit;
+    border-collapse: collapse;
+}
+
+.privacy-policy-table td {
+    word-break: keep-all;
+    border-width: 1px;
+    padding: .5rem;
+    padding-left: 5px;
+}
+
+td.number-part {
+    vertical-align: top;
+    width: 25px;
+
+}
+
+.number-p {
+    font-size: 0.8em;
+    padding-left: 2em;
+}
+

@@ -1,0 +1,16 @@
+package com.itda.backend.dto;
+
+import java.util.List;
+
+import lombok.Data;
+
+@Data
+public class LocationSelectedDTO {
+
+    private Long id;
+    private Long userNo;
+    private Long selected;
+    private String createdSelectedTime;
+    private List<Long> userList;
+
+}
