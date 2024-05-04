@@ -151,7 +151,6 @@ public class LocationService {
     // userNo를 받아와서 가까운 순으로 조회
     public List<LocationDTO> getMatchingDistance(Long userNo) throws Exception {
 
-        System.out.println("왔어?4");
         List<LocationDTO> matchingDistances = locationMapper.getMatchingDistance(userNo);
 
         if (matchingDistances.size() < 4) {

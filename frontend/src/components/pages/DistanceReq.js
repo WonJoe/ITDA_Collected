@@ -1,65 +1,113 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import address from '../../API_KEY'
+import address from '../../API_KEY';
+import { Button, Form, Card, Col, Row } from 'react-bootstrap';
+import { IoLocationSharp } from "react-icons/io5";
 
-const DistanceReq = (props) => {
+const DistanceReq = ({ user }) => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [valueId, setValueId] = useState(user?.userNo || '');
+    const [num, setNum] = useState(0);
 
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(true)
-    const [error,setError] = useState('')
-    const [valueId,setValueId] = useState('')
-    const [num,setNum] = useState(0)
-
-    useEffect(()=>{
-        if (valueId === null || valueId === '') {
+    useEffect(() => {
+        if (num === 0 || !user) {
             return;
         }
+
+        if (valueId === '') {
+            return;
+        }
+
         axios.post(`${address.backendaddress}/testonelist`, { userNo: valueId }, {
             headers: {
-            'Content-Type': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json; charset=utf-8',
             },
         })
-        .then(res=>{
-            console.log(res)
-            setData(res.data)
-            setLoading(false)
-            setError('')
-        }).catch(error=>{
-            setData({})
-            setLoading(true)
-            setError('데이터를 찾을 수 없습니다.')
+        .then(res => {
+            setData(res.data);
+            console.log(res.data);
+            setLoading(false);
+            setError('');
         })
-    },[num])
+        .catch(error => {
+            setData({});
+            setLoading(true);
+            setError('데이터를 찾을 수 없습니다.');
+        });
+    }, [num, user, valueId]);
 
-    const search = () =>{
-        setNum(valueId)
-    }
+    const search = () => {
+        setNum(num + 1);
+    };
 
     return (
-        <div style={{ width: '100%' }}>
-            <input width={500} type='text' value={valueId} onChange={evt => setValueId(evt.target.value)}/>
-            <button onClick={search}>검색</button>
-            <div>
-                {loading ? <h4>로딩중...</h4> : (
+        <div style={{ width: '100%',textAlign: 'center' }}>
+            {user ? (
+                <>
+                    <Form.Control
+                        type="text"
+                        name="userId"
+                        value={valueId}
+                        onChange={evt => setValueId(evt.target.value)}
+                        disabled
+                        style={{display:'none'}}
+                    />
+                    <br/>
                     <div>
-                        {data && data.length > 0 ? (
-                            data.map((item, index) => (
-                                <div key={index} style={{ borderWidth: 2, borderStyle: 'solid' }}>
-                                    <p>아이디: {item.userNo}</p>
-                                    <p>주소: {item.address}</p>
-                                    <p>거리: {item.distance}Km 떨어짐</p>
-                                </div>
-                            ))
-                        ) : (
-                            <p>더 이상 요청할 수 없습니다.</p>
+                        {loading ? 
+                                <Col style={{width:'100%'}}>
+                                    <Card>
+                                        <Card.Body>
+                                            <Card.Title> <IoLocationSharp /> 가까운 동네 친구</Card.Title>
+                                            <Card.Text>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                    : (
+                            <Row xs={1} md={2} className="g-4">
+                                {data && data.length > 0 ? (
+                                    data.map((item, index) => (
+                                        <Col key={index} align={'center'}>
+                                            <Card style={{width:'80%', background:'pink'}}>
+                                            <Card.Img style={{ width: 'auto', maxHeight: '400px', objectFit: 'contain', margin: '5%' }} variant="top" src={'./profile/' + item.user_Profile} />
+                                                <Card.Body>
+                                                    <Card.Title style={{fontSize:'30px', color:'white'}}>{item.user_id}</Card.Title>
+                                                    <Card.Text style={{fontSize:'25px', color:'white'}}>
+                                                        #{item.user_Address} #{item.distance}Km
+                                                        <br/>
+                                                        #{item.user_Age}살 #{item.user_MBTI}
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </Col>
+                                    ))
+                                ) : (
+                                    <Col style={{width:'100%'}}>
+                                        <Card>
+                                            <Card.Body>
+                                                <Card.Text>
+                                                    더 이상 요청할 수 없습니다.
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                )}
+                            </Row>
                         )}
                     </div>
-                )}
-            </div>
-            <p>{error}</p>
+                        <br/>
+                            <Button style={{ background:'pink',borderColor:'white', width:'30%', height:'50px'}} onClick={search}>Near ITDA</Button>
+                        <br/>
+                    <p>{error}</p>
+                </>
+            ) : (
+                <p>로그인이 필요한 페이지입니다.</p>
+            )}
         </div>
     );
-    
 };
 
 export default DistanceReq;

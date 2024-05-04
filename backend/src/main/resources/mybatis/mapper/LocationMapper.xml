@@ -38,26 +38,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 거리순 매칭 -->
 <select id="getMatchingDistance" parameterType="Long" resultType="com.itda.backend.dto.LocationDTO">
 	SELECT 
-    USER_NO as userNo,
-    ADDRESS,
-    ADJUSTED_LAT,
-    ADJUSTED_LNG,
-    CREATED_LOCATION_TIME,
-    LAT,
-    LNG,
+    u.user_id,
+    u.user_Name,
+    u.user_Age,
+    u.user_Address,
+    u.user_Hobby,
+    u.user_Profile,
+    u.user_MBTI,
+    l.USER_NO as userNo,
+    l.ADDRESS,
+    l.ADJUSTED_LAT,
+    l.ADJUSTED_LNG,
+    l.CREATED_LOCATION_TIME,
+    l.LAT,
+    l.LNG,
 	CASE 
-        WHEN ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2))) = 0 THEN 1
-        ELSE ROUND(SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2)))
+        WHEN ROUND(SQRT(POWER((ls.ADJUSTED_LAT - l.ADJUSTED_LAT) * 91, 2) + POWER((ls.ADJUSTED_LNG - l.ADJUSTED_LNG) * 113, 2))) = 0 THEN 1
+        ELSE ROUND(SQRT(POWER((ls.ADJUSTED_LAT - l.ADJUSTED_LAT) * 91, 2) + POWER((ls.ADJUSTED_LNG - l.ADJUSTED_LNG) * 113, 2)))
     END as distance 
-	FROM 
-		location
-	WHERE 
-		USER_NO != #{userNo} 
-   		AND user_no NOT IN (SELECT selected FROM location_selected WHERE user_no = #{userNo})
-        AND user_no IN (select user_no from users where USER_GENDER != (SELECT USER_GENDER from users where user_no = #{userNo}))
-	ORDER BY 
-		SQRT(POWER(((SELECT ADJUSTED_LAT FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LAT) * 91, 2) + POWER(((SELECT ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) - ADJUSTED_LNG) * 113, 2)) asc
-
+    FROM 
+        location l
+    JOIN 
+        users u ON l.USER_NO = u.USER_NO
+    JOIN 
+        (SELECT ADJUSTED_LAT, ADJUSTED_LNG FROM LOCATION WHERE USER_NO = #{userNo}) ls ON 1=1
+    WHERE 
+        l.USER_NO != #{userNo} 
+        AND l.user_no NOT IN (SELECT selected FROM location_selected WHERE user_no = #{userNo})
+        AND u.USER_GENDER != (SELECT USER_GENDER from users where user_no = #{userNo})
+    ORDER BY 
+        SQRT(POWER((ls.ADJUSTED_LAT - l.ADJUSTED_LAT) * 91, 2) + POWER((ls.ADJUSTED_LNG - l.ADJUSTED_LNG) * 113, 2)) asc
 </select>
 
 <!-- 거리순 매칭 가능여부 확인 -->

@@ -20,12 +20,10 @@ public class LocationController {
 	@CrossOrigin
 	@PostMapping("/testonelist")
 	public ResponseEntity<?> matching(@RequestBody Location location) throws Exception {
-		System.out.println("왔어?");
+
 		Long userNo = location.getUserNo();
-		System.out.println("왔어2");
 
 		ResponseEntity<?> testentity = new ResponseEntity<>(locationService.getMatchingDistance(userNo), HttpStatus.OK);
-		System.out.println("왔어?3");
 
 		LocationSelectedDTO dto = new LocationSelectedDTO();
 		dto.setUserNo(userNo);

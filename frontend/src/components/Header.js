@@ -1,38 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import axios from 'axios';
 import { IoDiamondOutline } from "react-icons/io5";
-import address from '../API_KEY'
 
-const Header = () => {
-    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        fetchUserData();
-    }, [setUser]);
-
-    const fetchUserData = async () => {
-        try {
-            const response = await axios.get(`${address.backendaddress}/users/logged-in`, { withCredentials: true });
-            setUser(response.data);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    const handleLogout = async () => {
-        try {
-            await axios.post(`${address.backendaddress}/logout`, null, { withCredentials: true });
-            setUser(null);
-            window.location.reload();
-        } catch (error) {
-            console.error('Error logging out:', error);
-        }
-    };
-
+const Header = ({user,handleLogout}) => {
+    
     return (
-        <Navbar style={{backgroundColor: 'pink'}} data-bs-theme="dark">
+        <Navbar style={{backgroundColor: 'pink', height:'80px'}} data-bs-theme="dark">
             <Container>
                 <Navbar.Brand href="/">IT-DA</Navbar.Brand>
                 <Nav className="me-auto">
