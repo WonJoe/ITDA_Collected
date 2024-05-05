@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import address from '../../API_KEY';
 import { Button, Form, Card, Col, Row } from 'react-bootstrap';
-import { IoLocationSharp } from "react-icons/io5";
+import { IoLocationSharp,IoDiamondOutline } from "react-icons/io5";
 
-const DistanceReq = ({ user }) => {
+const DistanceReq = ({ user,setIsLoading }) => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -12,6 +12,7 @@ const DistanceReq = ({ user }) => {
     const [num, setNum] = useState(0);
 
     useEffect(() => {
+
         if (num === 0 || !user) {
             return;
         }
@@ -19,6 +20,10 @@ const DistanceReq = ({ user }) => {
         if (valueId === '') {
             return;
         }
+
+        distanceReq()
+
+        function distanceReq(){
 
         axios.post(`${address.backendaddress}/testonelist`, { userNo: valueId }, {
             headers: {
@@ -36,10 +41,19 @@ const DistanceReq = ({ user }) => {
             setLoading(true);
             setError('데이터를 찾을 수 없습니다.');
         });
+
+        
+
+        }
+        
     }, [num, user, valueId]);
 
     const search = () => {
+        setIsLoading(true);
         setNum(num + 1);
+        setTimeout(() => {
+            setIsLoading(false); // 1초 후에 로딩 상태를 해제
+        }, 1000);
     };
 
     return (
@@ -99,7 +113,7 @@ const DistanceReq = ({ user }) => {
                         )}
                     </div>
                         <br/>
-                            <Button style={{ background:'pink',borderColor:'white', width:'30%', height:'50px'}} onClick={search}>Near ITDA</Button>
+                            <Button style={{ background:'#cc99cc',borderColor:'white', width:'30%', height:'50px'}} onClick={search}>Near ITDA <IoDiamondOutline/> 30</Button>
                         <br/>
                     <p>{error}</p>
                 </>

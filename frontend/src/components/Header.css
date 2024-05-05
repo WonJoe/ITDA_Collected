@@ -1,0 +1,11 @@
+.nav-link {
+  color: #ffffff; /* 비활성화된 링크의 텍스트색 */
+}
+
+.active-link {
+  background-color: #ffffff; /* 활성화된 링크의 배경색 */
+  color: pink; /* 활성화된 링크의 텍스트색 */
+  border-radius: 10px;
+  
+}
+  

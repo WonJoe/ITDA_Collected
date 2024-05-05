@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.itda.backend.mapper.TestMapper">
+
+    <insert id="insertDate" parameterType="com.itda.backend.dto.TestDTO">
+              insert into test (id,password,name,gender,tall,weight,distance,saveFileName,originalFileName,logChk) values 
+              (#{id},#{password},#{name},#{gender},#{tall},#{weight},#{distance},#{saveFileName},#{originalFileName},#{logChk}) 
+
+    </insert>
+
+    <insert id="insertChat" parameterType="com.itda.backend.dto.ChatDTO">
+            insert into chat (chatNum,senderId,receiverId,message,timestamp) values 
+            (#{chatNum},#{senderId},#{receiverId},#{message},#{timestamp})
+    </insert>
+
+    <select id="idCheck" parameterType="String" resultType="com.itda.backend.dto.TestDTO">
+               select id,password,name from test where id=#{id}
+    </select>
+
+    <select id="maxNum" resultType="int">
+            SELECT COALESCE(MAX(chatNum), 0) FROM chat
+    </select>
+
+    <select id="getList" resultType="com.itda.backend.dto.TestDTO">
+        select *from test
+    </select>
+
+     <select id="chatList" parameterType="com.itda.backend.dto.ChatDTO" resultType="com.itda.backend.dto.ChatDTO">
+        select *from chat where senderId = #{senderId} AND receiverId = #{receiverId} or senderId = #{receiverId} AND receiverId = #{senderId} 
+
+    </select>
+
+
+    <select id="ranMaxNum" resultType="int">
+            SELECT COALESCE(MAX(chatNum), 0) FROM ranchat
+    </select>
+
+    <select id="ranList" parameterType="String" resultType="com.itda.backend.dto.TestDTO">
+        select *from test where id!=#{id} and logchk='true'
+    </select>
+
+    <insert id="insertRanChat" parameterType="com.itda.backend.dto.ChatDTO">
+                insert into ranchat (chatNum,senderId,receiverId,message,timestamp) values 
+                (#{chatNum},#{senderId},#{receiverId},#{message},#{timestamp})
+    </insert>
+
+    <update id="updateLog" parameterType="com.itda.backend.dto.TestDTO">
+        update test set logChk = #{logChk}  where id = #{id}
+    </update>
+
+    <select id="ranChatList" parameterType="String" resultType="com.itda.backend.dto.ChatDTO">
+      SELECT chatNum, senderId, receiverId, message, timestamp
+        FROM (
+            SELECT chatNum, senderId, receiverId, message, timestamp,
+                   ROW_NUMBER() OVER (PARTITION BY CASE WHEN senderId = #{senderId} THEN receiverId ELSE senderId END ORDER BY timestamp DESC) AS rn
+            FROM ranChat
+            WHERE senderId = #{senderId} OR receiverId = #{senderId}
+        )
+        WHERE rn = 1
+    </select>
+
+
+      <select id="ranDomChatList" parameterType="com.itda.backend.dto.ChatDTO" resultType="com.itda.backend.dto.ChatDTO">
+        select *from ranchat where senderId = #{senderId} AND receiverId = #{receiverId} or senderId = #{receiverId} AND receiverId = #{senderId} 
+    </select>
+
+    <select id="basketMaxNum" resultType="int">
+        SELECT COALESCE(MAX(basketNumber), 0) FROM diamondBasket   
+    </select>
+
+
+    <insert id="insertBasket" parameterType="com.itda.backend.dto.CartDTO">
+        insert into diamondBasket (basketNumber,id,name,diamonds,price,basketDate) values 
+        (#{basketNumber},#{id},#{name},#{diamonds},#{price},sysdate)
+    </insert>
+
+    <select id="basketList" parameterType="String" resultType="com.itda.backend.dto.CartDTO">
+        select *from diamondBasket where id=#{id} ORDER BY basketDate DESC
+    </select>
+
+    <insert id="paymentInsert" parameterType="com.itda.backend.dto.CartDTO">
+        insert into payment (orderNumber,id,diamonds,price) values 
+        (#{orderNumber},#{id},#{diamonds},#{price})
+    </insert>
+
+    <select id="payMaxNum" resultType="int">
+        SELECT COALESCE(MAX(orderNumber), 0) FROM payment   
+    </select>
+
+    <select id="payList" parameterType="String" resultType="com.itda.backend.dto.PayDTO" >
+        SELECT * FROM payment
+        WHERE id = #{id} AND (payCheck IS NULL OR LOWER(payCheck) != 'true')
+    </select>
+
+</mapper>

@@ -19,7 +19,7 @@ const requiredFields = [
 ];
 
 
-const CreateUser = (props) => {
+const CreateUser = ({setIsLoading, props}) => {
   const [createData, setCreateData] = useState({
     users: {
       userId: '',
@@ -224,7 +224,7 @@ const checkRequiredFields = (createData, requiredFields) => {
         
         {/* isOpen 상태에 따라 LocationWrite 컴포넌트를 보여주거나 감춥니다 */}
         {isOpen && (
-          <LocationWrite setCreateData={setCreateData} toggleLocationWrite={toggleLocationWrite}/>
+          <LocationWrite setCreateData={setCreateData} toggleLocationWrite={toggleLocationWrite} setIsLoading={setIsLoading}/>
         )}
         <br/>
         <br/>

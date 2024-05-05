@@ -1,30 +1,49 @@
-import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useEffect,useState } from 'react';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import { IoDiamondOutline } from "react-icons/io5";
+import './Header.css';
 
+const Header = ({ user, handleLogout, isLoading }) => {
 
-const Header = ({user,handleLogout}) => {
-    
+    // useEffect(() => {
+    //     if (isLoading) {
+    //     }
+    // }, [isLoading]);
+
     return (
-        <Navbar style={{backgroundColor: 'pink', height:'80px'}} data-bs-theme="dark">
+        <Navbar style={{ backgroundColor: 'pink', height: '80px' }} data-bs-theme="dark">
             <Container>
-                <Navbar.Brand href="/">IT-DA</Navbar.Brand>
-                <Nav className="me-auto">
-                    <Link to="/users" className="nav-link">이성 찾기</Link>
-                    <Link to="/req_list" className="nav-link">만남 신청</Link>
-                    <Link to="/schedule" className="nav-link">만남 일정</Link>
-                    <Link to="/board" className="nav-link">게시판</Link>
-                    <Link to ="/distanceReq" className="nav-link">거리순 매칭</Link>
-                    <Link to ="/createUser" className="nav-link">회원가입</Link>
+                <Navbar.Brand as={NavLink} to="/" className="nav-link">IT-DA</Navbar.Brand>
+                <Nav className="me-auto" variant="pills" defaultActiveKey="/home">
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/users" className="nav-link" activeClassName="active-link">이성 찾기</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/req_list" className="nav-link" activeClassName="active-link">만남 신청</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/schedule" className="nav-link" activeClassName="active-link">만남 일정</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/board" className="nav-link" activeClassName="active-link">게시판</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/distanceReq" className="nav-link" activeClassName="active-link">거리순 매칭</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/createUser" className="nav-link" activeClassName="active-link">회원가입</Nav.Link>
+                    </Nav.Item>
                 </Nav>
                 {user ? (
-                    <>
-                        <span>{user.userName} 님 반갑습니다.  <IoDiamondOutline />{user.diaQty}</span>
-                        <button onClick={handleLogout}>로그아웃</button>
-                    </>
+                    <Nav>
+                        <NavDropdown title={`${user.userName} 님 반갑습니다.  `}>
+                            <NavDropdown.Item><IoDiamondOutline />{user.diaQty}</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleLogout}>로그아웃</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
                 ) : (
-                    <Link to="/login" className="nav-link">로그인</Link>
+                    <NavLink to="/login" className="nav-link">로그인</NavLink>
                 )}
             </Container>
         </Navbar>

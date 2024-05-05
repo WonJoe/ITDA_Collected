@@ -3,13 +3,14 @@ import './LocationWrite.css';
 import api from '../../API_KEY';
 import mapStyle from '../../mapStyle';
 
-const LocationWrite = ({ setCreateData, toggleLocationWrite }) => {
+const LocationWrite = ({ setCreateData, toggleLocationWrite, setIsLoading }) => {
 
     const [address, setAddress] = useState('');
     const [lat, setLat] = useState('');
     const [lng, setLng] = useState('');
     
     useEffect(() => {
+        
 
         let map;
         let marker;
@@ -44,6 +45,8 @@ const LocationWrite = ({ setCreateData, toggleLocationWrite }) => {
         //   }
 
         function initMap() {
+
+            setIsLoading(true); 
 
             if (window.google && window.google.maps) {
                 map = new window.google.maps.Map(document.getElementById("map"), {
@@ -158,14 +161,17 @@ const LocationWrite = ({ setCreateData, toggleLocationWrite }) => {
             
             if (navigator.geolocation) {
                 geolocationTimeout = setTimeout(() => {
+                    setIsLoading(false); // 타임아웃이 발생할 때 로딩 완료로 변경
                     alert("사용자 위치를 가져오는 데 시간이 너무 오래 걸립니다.");
                 }, 15000);
                 
                 navigator.geolocation.getCurrentPosition((position) => {
                     clearTimeout(geolocationTimeout);
                     initMapWithLocation(position);
-                    }, (error) => {
+                    setIsLoading(false); // 위치 가져오기 완료됨을 알림
+                }, (error) => {
                     clearTimeout(geolocationTimeout);
+                    setIsLoading(false); // 위치 가져오기 실패로 완료됨을 알림
                     console.error("사용자 위치를 가져오는데 실패했습니다:", error);
                     alert("사용자 위치를 가져오는 데 실패했습니다.");
                     let position = {
@@ -177,6 +183,7 @@ const LocationWrite = ({ setCreateData, toggleLocationWrite }) => {
                     initMapWithLocation(position);
                 });
             } else {
+                setIsLoading(false); // 지원하지 않는 브라우저로 완료됨을 알림
                 alert("이 브라우저는 내위치 불러오기를 지원하지 않습니다.");
             }
         }
@@ -339,7 +346,7 @@ const LocationWrite = ({ setCreateData, toggleLocationWrite }) => {
         return () => {
             document.body.removeChild(script);
         };
-    }, []);
+    }, [setIsLoading]);
 
     const handleAddressSelect = () => {
         setCreateData((prevData) => ({
