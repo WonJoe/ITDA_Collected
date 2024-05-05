@@ -1,11 +1,44 @@
-.nav-link {
-  color: #ffffff; /* 비활성화된 링크의 텍스트색 */
+.Container {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
 }
 
+.Nav {
+  display: flex;
+  flex-grow: 1; /* 아이템들이 가능한 최대 너비를 차지하도록 함 */
+  justify-content: space-between; /* 아이템들을 최대한 넓게 배치 */
+}
+
+.nav-link-home {
+  color: #ffffff !important ;/* 비활성화된 링크의 텍스트색 */
+  width: fit-content;
+  height: auto;
+  font-size: 30px !important;
+  font-family: fantasy !important;
+}
+
+.nav-link {
+  color: #ffffff !important ;/* 비활성화된 링크의 텍스트색 */
+  width: fit-content;
+  height: auto;
+  font-size: 22px !important;
+  font-family: fantasy !important;
+  font-weight: 400 !important;
+
+}
+
+
 .active-link {
-  background-color: #ffffff; /* 활성화된 링크의 배경색 */
-  color: pink; /* 활성화된 링크의 텍스트색 */
-  border-radius: 10px;
+  background-color: #ffffff !important; /* 활성화된 링크의 배경색 */
+  color: pink !important; /* 활성화된 링크의 텍스트색 */
+  border-radius: 10px !important;
   
 }
+
+.nav-dropdown-item {
   
+  font-size: 16px;
+  color: #333;
+  width: fit-content;
+ 
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BasketItem from './BasketItem';
+import address from '../../API_KEY'
 
 const BasketList = () => {
     const [lists, setLists] = useState([]);
@@ -13,7 +14,7 @@ const BasketList = () => {
       
       const checkLoginStatus = async () => {
         try {
-          const response = await axios.get("http://localhost:4000/users/logged-in", { withCredentials: true });
+          const response = await axios.get(`${address.backendaddress}/users/logged-in`, { withCredentials: true });
           setIsLoggedIn(response.data);
         } catch (error) {
           console.error('Error checking login status:', error);
@@ -22,7 +23,7 @@ const BasketList = () => {
 
         const fetchData = async () => {
             try {
-                const res = await axios.get("http://localhost:4000/api/basketList", { withCredentials: true });
+                const res = await axios.get(`${address.backendaddress}/api/basketList`, { withCredentials: true });
                 setLists(res.data);
             } catch (error) {
                 console.log(error);
@@ -36,7 +37,7 @@ const BasketList = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:4000/api/processPayments', {
+            const response = await axios.post(`${address.backendaddress}/api/processPayments`, {
                 lists: lists
             });
             // 성공 응답 확인 조건 변경

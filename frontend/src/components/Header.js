@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { IoDiamondOutline } from "react-icons/io5";
@@ -14,7 +14,7 @@ const Header = ({ user, handleLogout, isLoading }) => {
     return (
         <Navbar style={{ backgroundColor: 'pink', height: '80px' }} data-bs-theme="dark">
             <Container>
-                <Navbar.Brand as={NavLink} to="/" className="nav-link">IT-DA</Navbar.Brand>
+                <Navbar.Brand as={NavLink} to="/" className="nav-link-home">IT-DA</Navbar.Brand>
                 <Nav className="me-auto" variant="pills" defaultActiveKey="/home">
                     <Nav.Item>
                         <Nav.Link as={NavLink} to="/users" className="nav-link" activeClassName="active-link">이성 찾기</Nav.Link>
@@ -34,12 +34,22 @@ const Header = ({ user, handleLogout, isLoading }) => {
                     <Nav.Item>
                         <Nav.Link as={NavLink} to="/createUser" className="nav-link" activeClassName="active-link">회원가입</Nav.Link>
                     </Nav.Item>
+
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/charge" className="nav-link" activeClassName="active-link">다이아 구매</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/basket" className="nav-link" activeClassName="active-link">장바구니</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link as={NavLink} to="/pay" className="nav-link" activeClassName="active-link">결제</Nav.Link>
+                    </Nav.Item>
                 </Nav>
                 {user ? (
                     <Nav>
-                        <NavDropdown title={`${user.userName} 님 반갑습니다.  `}>
-                            <NavDropdown.Item><IoDiamondOutline />{user.diaQty}</NavDropdown.Item>
-                            <NavDropdown.Item onClick={handleLogout}>로그아웃</NavDropdown.Item>
+                        <NavDropdown className="nav-dropdown-item" title={`${user.userName} 님 반갑습니다.  `}>
+                            <NavDropdown.Item className="nav-dropdown-item"><IoDiamondOutline />{user.diaQty}</NavDropdown.Item>
+                            <NavDropdown.Item className="nav-dropdown-item" onClick={handleLogout}>로그아웃</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 ) : (

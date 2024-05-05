@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { IoDiamondOutline } from "react-icons/io5";
 import axios from 'axios';
 import './Charge.css';
+import address from '../../API_KEY'
 
 const Charge = () => {
 
@@ -14,7 +15,7 @@ const Charge = () => {
 
       const checkLoginStatus = async () => {
         try {
-          const response = await axios.get("http://localhost:4000/users/logged-in", { withCredentials: true });
+          const response = await axios.get(`${address.backendaddress}/users/logged-in`, { withCredentials: true });
           setIsLoggedIn(response.data);
         } catch (error) {
           console.error('Error checking login status:', error);
@@ -35,7 +36,7 @@ const Charge = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4000/api/addToCart', {
+            const response = await axios.post(`${address.backendaddress}/api/addToCart`, {
                 id: isLoggedIn.userId,
                 name: isLoggedIn.userName,
                 diamonds: selectedOption.diamonds,
@@ -54,7 +55,7 @@ const Charge = () => {
             return;
         }
         try {
-            const response = await axios.post('http://localhost:4000/api/paymentReady', {
+            const response = await axios.post(`${address.backendaddress}/api/paymentReady`, {
                 id: isLoggedIn.userId,
                 diamonds: selectedOption.diamonds,
                 price: selectedOption.price

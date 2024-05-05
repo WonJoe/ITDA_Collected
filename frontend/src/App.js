@@ -18,6 +18,10 @@ import Footer from "./components/Footer";
 import address from './API_KEY'
 import axios from 'axios';
 import Loading from "./components/pages/Loading";
+import Charge from "./components/Diamond/Charge";
+import BasketList from "./components/Basket/BasketList";
+import Pay from "./components/Payment/Pay";
+
 
 
 function App() {
@@ -64,8 +68,10 @@ function App() {
         <Route path="/distanceReq" exact render={() => <DistanceReq user={user} setIsLoading={setIsLoading} />} />
         <Route path="/createUser" exact render={() => <CreateUser user={user} setIsLoading={setIsLoading} />}/>
         <Route path="/complete" exact component={Complete}/>
-        
-        
+
+        <Route path="/charge" exact component={Charge}/>
+        <Route path="/basket" exact component={BasketList}/>
+        <Route path="/pay" exact component={Pay}/>
 
         {/* Footer 영역 SSR 고려 */}
         <Route path="/ConditionsOfUse" exact component={ConditionsOfUse}/>

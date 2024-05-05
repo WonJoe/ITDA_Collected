@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PaymentItem from './PaymentItem';
+import address from '../../API_KEY'
 
 const Pay = () => {
     const [lists, setLists] = useState([]);
@@ -15,7 +16,7 @@ const Pay = () => {
       
       const checkLoginStatus = async () => {
         try {
-          const response = await axios.get("http://localhost:4000/users/logged-in", { withCredentials: true });
+          const response = await axios.get(`${address.backendaddress}/users/logged-in`, { withCredentials: true });
           setIsLoggedIn(response.data);
         } catch (error) {
           console.error('Error checking login status:', error);
@@ -23,7 +24,7 @@ const Pay = () => {
       };
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/payList", { withCredentials: true })
+        axios.get(`${address.backendaddress}/api/payList`, { withCredentials: true })
             .then(response => {
                 if (response.status === 200) {
                     setLists(response.data);
