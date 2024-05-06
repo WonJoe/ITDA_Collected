@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import address from '../../API_KEY';
 import LocationWrite from './LocationWrite';
 import axios from 'axios';
+import './CreateUser.css'
 
 
 const requiredFields = [
@@ -19,7 +19,7 @@ const requiredFields = [
 ];
 
 
-const CreateUser = ({setIsLoading, props}) => {
+const CreateUser = ({setIsLoading,props}) => {
   const [createData, setCreateData] = useState({
     users: {
       userId: '',
@@ -33,7 +33,7 @@ const CreateUser = ({setIsLoading, props}) => {
       userTel: '',
       userWeight: '',
       userProfile: '', // 이미지
-      userMBTI: ''
+      userMBTI: '',
     },
     location: {
       lat: '',
@@ -59,35 +59,51 @@ const CreateUser = ({setIsLoading, props}) => {
     }));
   };
 
-  const handleSubmit = (e) => {
-  e.preventDefault();
-
-  // 필수 필드를 확인하여 누락된 필드가 있는지 확인
-  const missingFields = checkRequiredFields(createData, requiredFields);
-
-  // 누락된 필드가 있으면 알림을 표시하고 함수 종료
-  if (missingFields.length > 0) {
-    const missingFieldsText = missingFields.map(field => `${field}을(를)`).join(', ');
-    alert(`${missingFieldsText} 입력해주세요.`);
-    return;
-  }
-
-  // 모든 필수 필드가 입력되었다면 요청 보내기
-  axios.post(`${address.backendaddress}/users/create`, createData, {
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    withCredentials: true, // withCredentials 옵션 추가
-  })
-  .then((res) => {
-    console.log(res.data);
-    props.history.push('/complete');
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   
-};
+    const formData = new FormData(); // FormData 객체 생성
+  
+    // 사용자 정보 추가
+    formData.append('users.userName', createData.users.userName);
+    formData.append('users.userId', createData.users.userId);
+    formData.append('users.userPassword', createData.users.userPassword);
+    formData.append('users.userEmail', createData.users.userEmail);
+    formData.append('users.userGender', createData.users.userGender);
+    formData.append('users.userAge', createData.users.userAge);
+    formData.append('users.userHobby', createData.users.userHobby);
+    formData.append('users.userTel', createData.users.userTel);
+    formData.append('users.userWeight', createData.users.userWeight);
+    // formData.append('users.userProfile', createData.users.userProfile);
+    formData.append('users.userMBTI', createData.users.userMBTI);
+  
+    // 위치 정보 추가
+    formData.append('location.address', createData.location.address);
+    formData.append('location.lat', createData.location.lat);
+    formData.append('location.lng', createData.location.lng);
+  
+    // 파일 추가
+    formData.append('uploadFile', createData.users.userProfile);
+  console.log("전달");
+    try {
+      const response = await axios.post(
+        // `${address.backendaddress}/users/create`,
+        "http://localhost:4000/users/create",
+        formData, // FormData 객체를 전달
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Content-Type을 multipart/form-data로 설정
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      props.history.push('/complete');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
 
   
 // 필드의 값을 가져오는 함수
@@ -125,6 +141,16 @@ const checkRequiredFields = (createData, requiredFields) => {
   return missingFields;
 };
 
+const handleFileChange = (e) => {
+  const file = e.target.files[0]; // 선택된 파일 가져오기
+  setCreateData((prevData) => ({
+    ...prevData,
+    users: {
+      ...prevData.users,
+      userProfile: file, // 선택된 파일을 userProfile에 업데이트
+    },
+  }));
+};
 
 
   
@@ -135,11 +161,11 @@ const checkRequiredFields = (createData, requiredFields) => {
   };
 
   return (
-    <div>
+    <div className='CreateUserForm'>
       
       
         <Form.Group className="mb-3">
-          <Form.Label>성함</Form.Label>
+          <Form.Label>이름</Form.Label>
           <Form.Control
             type="text"
             name="users.userName"
@@ -170,7 +196,7 @@ const checkRequiredFields = (createData, requiredFields) => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>이메일</Form.Label>
+          <Form.Label>프로필 사진</Form.Label>
           <Form.Control
             type="text"
             name="users.userEmail"
@@ -213,12 +239,12 @@ const checkRequiredFields = (createData, requiredFields) => {
             name="location.address"
             value={createData.location.address}
             onChange={handleChange}
-            disabled={false}
+            disabled={true}
           />
         </Form.Group>
 
         {/* LocationWrite 컴포넌트를 토글할 버튼 */}
-        <Button onClick={toggleLocationWrite}>
+        <Button className='select' onClick={toggleLocationWrite}>
           {isOpen ? '주소 선택 닫기' : '주소 선택 열기'}
         </Button>
         
@@ -226,8 +252,8 @@ const checkRequiredFields = (createData, requiredFields) => {
         {isOpen && (
           <LocationWrite setCreateData={setCreateData} toggleLocationWrite={toggleLocationWrite} setIsLoading={setIsLoading}/>
         )}
-        <br/>
-        <br/>
+
+<br/><br/>
 
         <Form.Group className="mb-3">
           <Form.Label>나이</Form.Label>
@@ -261,7 +287,8 @@ const checkRequiredFields = (createData, requiredFields) => {
 
 {/* 필수입력아님 */}
         <Form.Group className="mb-3">
-          <Form.Label>무게</Form.Label>
+          
+          <Form.Label>키</Form.Label>
           <Form.Control
             type="text"
             name="users.userWeight"
@@ -271,12 +298,23 @@ const checkRequiredFields = (createData, requiredFields) => {
           </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>이미지</Form.Label>
+          
+          <Form.Label>몸무게</Form.Label>
           <Form.Control
             type="text"
-            name="users.userProfile"
-            value={createData.users.userProfile}
+            name="users.userWeight"
+            value={createData.users.userWeight}
             onChange={handleChange}
+          />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+          <Form.Label>이미지</Form.Label>
+          <Form.Control
+            type="file"
+            name="users.userProfile"
+            // value={createData.users.userProfile}
+            onChange={handleFileChange}
           />
           </Form.Group>
 
@@ -294,6 +332,7 @@ const checkRequiredFields = (createData, requiredFields) => {
         </Form>
 
         
+        <br/>
 
         <Form onSubmit={handleSubmit}>
 
@@ -320,12 +359,7 @@ const checkRequiredFields = (createData, requiredFields) => {
           />
         </Form.Group>
 
-        <br/>
-
-        <Button type="submit">회원가입</Button>
-
-        <br/><br/><br/>   
-
+        <Button  className='select' type="submit">회원가입</Button>
       </Form>
     </div>
   );

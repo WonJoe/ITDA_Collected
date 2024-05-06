@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import address from '../../API_KEY'
-// import styled from "styled-components";
+import './Login.css'
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { useHistory } from 'react-router-dom';
+
 
 const Login = ({ setLoggedInUser }) => {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [error, setError] = useState('');
 
+  const history = useHistory();
+
+  const handlecreateUser = () => {
+    history.push('/createUser');
+  };
+
   const handleLogin = async () => {
+
+    document.activeElement.blur();
+
+
     try {
       const response = await axios.post(`${address.backendaddress}/login`, { userId, userPassword }, { withCredentials: true });
       
@@ -16,6 +30,7 @@ const Login = ({ setLoggedInUser }) => {
 
       const userResponse = await axios.get(`${address.backendaddress}/users`, { withCredentials: true });
       setLoggedInUser(userResponse.data);
+      console.log(userResponse.data)
 
       window.location.href='/'
       
@@ -29,68 +44,52 @@ const Login = ({ setLoggedInUser }) => {
       }
     }
   };
-//   const Container = styled.div`
-//   margin-top: 100px;
-//   padding: 20px;
-// `;
-
-// const Input = styled.input`
-//   position: relative;
-//   overflow: hidden;
-//   width: 100%;
-//   height: 40px;
-//   margin: 0 0 8px;
-//   padding: 5px 39px 5px 11px;
-//   border: solid 1px #dadada;
-//   background: #fff;
-//   box-sizing: border-box;
-// `;
-
-// const Button = styled.div`
-//   font-size: 18px;
-//   font-weight: 700;
-//   line-height: 49px;
-//   display: block;
-//   width: 100%;
-//   height: 49px;
-//   margin: 16px 0 7px;
-//   cursor: pointer;
-//   text-align: center;
-//   color: #fff;
-//   border: none;
-//   border-radius: 0;
-//   background-color: #03c75a;
-//   ${({ disabled }) =>
-//     disabled &&
-//     `
-//     background-color: #efefef;
-//   `}
-// `;
 
   return (
-    <div>
-      <h2>로그인</h2>
-      <div>
-        <label htmlFor="userId">아이디:</label>
-        <input type="text" id="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
-      </div>
-      <div>
-        <label htmlFor="userPassword">비밀번호:</label>
-        <input type="password" id="userPassword" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
-      </div>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleLogin}>로그인</button>
+    // <div>
+    //   <h2>로그인</h2>
+    //   <div>
+    //     <label htmlFor="userId">아이디:</label>
+    //     <input type="text" id="userId" value={userId} onChange={(e) => setUserId(e.target.value)} />
+    //   </div>
+    //   <div>
+    //     <label htmlFor="userPassword">비밀번호:</label>
+    //     <input type="password" id="userPassword" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+    //   </div>
+    //   {error && <p style={{ color: 'red' }}>{error}</p>}
+    //   <button onClick={handleLogin}>로그인</button>
+    // </div>
+
+    <div className='loginForm'>
+      <br/>
+      <h2 style={{fontWeight: 'bold'}}>로그인</h2>
+      <br/>
+      <Form.Floating className="mb-3">
+        <Form.Control
+          id="userId"
+          type="text"
+          placeholder='ID'
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+        />
+        <label htmlFor="floatingInputCustom">ID</label>
+      </Form.Floating>
+      <Form.Floating>
+        <Form.Control
+          id="userPassword"
+          type="password"
+          placeholder='password'
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
+        />
+        <label htmlFor="floatingPasswordCustom">Password</label>
+      </Form.Floating>
+      <br/>
+      <br/>
+      {error && <p style={{color: 'red'}}>{error}</p>}
+      <Button className='loginButton' onClick={handleLogin}>로그인</Button>
+      <Button className='loginButton' onClick={handlecreateUser}>회원가입</Button>
     </div>
-    // <Container>
-    //   <Input id="id" name="id" placeholder="아이디를 입력해주세요" />
-    //   <Input
-    //     id="password"
-    //     name="password"
-    //     type="password"
-    //     placeholder="비밀번호를 입력해주세요"
-    //   />
-    //   <Button>로그인</Button>
-    // </Container>
   );
 };
 

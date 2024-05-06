@@ -1,0 +1,16 @@
+.CreateUserForm {
+    width: 60%;
+    min-width: 400px;
+    
+    border-radius: 10px;
+    border-width: 10px !important;
+    border-color: black !important;
+    /* background-color: #cc99cc; */
+    margin: 30px auto;
+    font-size: 20px;
+    /* font-weight: bold; */
+}
+
+.select {
+    width: 100%;
+}

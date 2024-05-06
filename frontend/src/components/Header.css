@@ -25,6 +25,11 @@
   font-family: fantasy !important;
   font-weight: 400 !important;
 
+  --bs-nav-link-padding-x: 0;
+  --bs-nav-link-padding-y: 0.5rem;
+  padding-left: var(--bs-navbar-nav-link-padding-x) !important;
+  padding-right: var(--bs-navbar-nav-link-padding-x) !important;
+
 }
 
 
