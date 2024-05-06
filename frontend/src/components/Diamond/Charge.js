@@ -35,6 +35,7 @@ const Charge = () => {
     var seconds = today.getSeconds();  // 초
     var milliseconds = today.getMilliseconds();
     var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+    var purchasetime = new Intl.DateTimeFormat('kr',{dateStyle : 'long', timeStyle : 'medium'}).format(today);
 
     var IMP;
 
@@ -78,11 +79,35 @@ const Charge = () => {
                     // buyer_postcode : 
                 }, async function (rsp) { // callback
                     if (rsp.success) { //결제 성공시
-                        console.log(rsp);
+                        console.log("유저넘버 : " + response.data.userNo);
+                        console.log("구매항목 : " + rsp.name);
+                        console.log("구매번호 : " + rsp.merchant_uid);
+                        console.log("가격 : " + rsp.paid_amount);
+                        console.log("구매일자 : " + purchasetime);
                         //결제 성공시 프로젝트 DB저장 요청
+                        axios.post(`${address.backendaddress}/purchase`, {
+                              userNo: response.data.userNo,
+                              product: rsp.name,
+                              orderNumber: rsp.merchant_uid,
+                              price: rsp.paid_amount,
+                              purchaseTime: purchasetime,
+                              amount:selectedOption.diamonds
+                            }, {
+                              headers: {
+                                'Content-Type': 'application/json; charset=utf-8',
+                            },
+                        })
+                        .then(res => {
+                          console.log(res.data);
+                          // 여기서 필요한 작업을 수행하십시오.
+                      })
+                      .catch(error => {
+                          console.error('Error sending purchase info:', error);
+                      });
+
                         if (response.status == 200) { // DB저장 성공시
                             alert('결제 완료!')
-                            window.location.reload();
+                            // window.location.reload();
                         } else { // 결제완료 후 DB저장 실패시
                             alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
                             // DB저장 실패시 status에 따라 추가적인 작업 가능성

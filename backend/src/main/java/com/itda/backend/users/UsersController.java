@@ -17,7 +17,6 @@ import com.itda.backend.location.LocationService;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UsersController {

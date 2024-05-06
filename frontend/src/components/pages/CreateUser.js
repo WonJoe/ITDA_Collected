@@ -3,6 +3,9 @@ import { Button, Form } from 'react-bootstrap';
 import LocationWrite from './LocationWrite';
 import axios from 'axios';
 import './CreateUser.css'
+import address from '../../API_KEY'
+import { useHistory } from 'react-router-dom';
+
 
 
 const requiredFields = [
@@ -19,7 +22,10 @@ const requiredFields = [
 ];
 
 
-const CreateUser = ({setIsLoading,props}) => {
+const CreateUser = ({ setIsLoading } ) => {
+
+  const history = useHistory();
+
   const [createData, setCreateData] = useState({
     users: {
       userId: '',
@@ -87,18 +93,20 @@ const CreateUser = ({setIsLoading,props}) => {
   console.log("전달");
     try {
       const response = await axios.post(
-        // `${address.backendaddress}/users/create`,
-        "http://localhost:4000/users/create",
-        formData, // FormData 객체를 전달
+        `${address.backendaddress}/users/create`,
+        // "http://localhost:4000/users/create",
+        // formData, // FormData 객체를 전달
+        createData, // FormData 객체를 전달
         {
           headers: {
-            'Content-Type': 'multipart/form-data', // Content-Type을 multipart/form-data로 설정
+            // 'Content-Type': 'multipart/form-data', // Content-Type을 multipart/form-data로 설정
+            'Content-Type': 'application/json; charset=utf-8', // Content-Type을 multipart/form-data로 설정
           },
           withCredentials: true,
         }
       );
       console.log(response.data);
-      props.history.push('/complete');
+      history.push('/Complete');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -164,15 +172,6 @@ const handleFileChange = (e) => {
     <div className='CreateUserForm'>
       
       
-        <Form.Group className="mb-3">
-          <Form.Label>이름</Form.Label>
-          <Form.Control
-            type="text"
-            name="users.userName"
-            value={createData.users.userName}
-            onChange={handleChange}
-          />
-        </Form.Group>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
@@ -196,7 +195,17 @@ const handleFileChange = (e) => {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>프로필 사진</Form.Label>
+          <Form.Label>이름</Form.Label>
+          <Form.Control
+            type="text"
+            name="users.userName"
+            value={createData.users.userName}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        
+        <Form.Group className="mb-3">
+          <Form.Label>이메일</Form.Label>
           <Form.Control
             type="text"
             name="users.userEmail"
@@ -302,14 +311,14 @@ const handleFileChange = (e) => {
           <Form.Label>몸무게</Form.Label>
           <Form.Control
             type="text"
-            name="users.userWeight"
-            value={createData.users.userWeight}
+            name="users.userHeight"
+            value={createData.users.userHeight}
             onChange={handleChange}
           />
           </Form.Group>
 
           <Form.Group className="mb-3">
-          <Form.Label>이미지</Form.Label>
+          <Form.Label>프로필 사진</Form.Label>
           <Form.Control
             type="file"
             name="users.userProfile"

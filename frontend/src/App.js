@@ -66,7 +66,7 @@ function App() {
         <Route path="/schedule" component={MeetSchedule} />
         <Route path="/board" component={Board} />
         <Route path="/distanceReq" exact render={() => <DistanceReq user={user} setIsLoading={setIsLoading} />} />
-        <Route path="/createUser" exact render={() => <CreateUser user={user} setIsLoading={setIsLoading} />}/>
+        <Route path="/createUser" exact render={() => <CreateUser user={user} setIsLoading={setIsLoading} />} />
         <Route path="/complete" exact component={Complete}/>
 
         <Route path="/charge" exact component={Charge}/>
