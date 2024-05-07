@@ -1,34 +1,25 @@
 package com.itda.backend.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.itda.backend.location.Location;
 import com.itda.backend.users.Users;
 
+import lombok.Data;
+
+@Data
 public class CreateUserRequest {
     private Users users;
     private Location location;
+    private MultipartFile uploadFile;
 
     public CreateUserRequest() {
     }
 
-    public CreateUserRequest(Users users, Location location) {
+    public CreateUserRequest(Users users, Location location, MultipartFile uploadFile) {
         this.users = users;
         this.location = location;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+        this.uploadFile = uploadFile;
     }
 
 }

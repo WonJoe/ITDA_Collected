@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { FaWindowClose } from "react-icons/fa";
 import './UserModal.css';
 import MeetRequest from './MeetRequest';
+
+const calculateAge = (birthYear) => {
+    const currentYear = new Date().getFullYear();
+    const yearString = birthYear.toString();
+    const shortenedYear = parseInt(yearString.substring(0, 2));
+    return currentYear - (parseInt(shortenedYear) + 1900);
+};
 
 const UserModal = ({ selUser, onClose }) => {
     const [showMeetRequestModal, setShowMeetRequestModal] = useState(false);
@@ -23,8 +30,8 @@ const UserModal = ({ selUser, onClose }) => {
             <div className='popup'>
                 <img src={'./profile/' + selUser.userProfile} alt='Profile' width='400px' height='auto' />
                 <h2>{selUser.userName}</h2>
-                <p>#{selUser.userAge}살 #{selUser.userAddress} #{selUser.userMBTI}</p>
-                <span><button onClick={onClose}><AiOutlineClose /></button></span>
+                <p>#{calculateAge(selUser.userBirth)}살 #{selUser.userAddress} #{selUser.userMBTI}</p>
+                <span><button style={{backgroundColor:'transparent',border:'none'}} onClick={onClose}><FaWindowClose  style={{color:'white', fontSize:'30px'}}/></button></span>
                 {showMeetRequestModal && (
                 <div className="MeetRequestModal">
                     <MeetRequest selUser={selUser} />

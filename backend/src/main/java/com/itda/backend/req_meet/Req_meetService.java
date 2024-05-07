@@ -53,7 +53,7 @@ public class Req_meetService {
 
         if (accepted) {
             request.setStatus(RequestStatus.ACCEPTED);
-            request.getSender().decreaseDiaQty(50);
+            request.getSender().decreaseDiaQty(250);
         } else {
             request.setStatus(RequestStatus.REJECTED);
         }

@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Bright';
+  src: url('../public/BRIGHT.TTF') format('truetype');
+}
+
+.font {
+  font-family: 'Bright', sans-serif;
+}

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserModal from './UserModal';
 import './UserModal.css';
+import './board.css';
 import address from '../../API_KEY'
+import { BsEnvelopePaperHeart } from "react-icons/bs";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -62,15 +64,41 @@ const UserList = () => {
 
   return (
     <div>
-      <h2>마음에 드는 이성에게 만남을 요청해 보세요!</h2>
+            <img src='./userListBg/service.png' alt='service' style={{marginTop:'100px'}}/>
+      <img src='./userListBg/bg2.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
+      <img src='./userListBg/bg3.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
+      <div id="carouselExample" className="carousel slide" style={{marginLeft:'100px'}}>
+        <br/>
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src="./userListBg/slide1.png" className="d-block w-100" alt="slide1"/>
+          </div>
+          <div className="carousel-item">
+            <img src="./userListBg/slide2.png" className="d-block w-100" alt="slide2" />
+          </div>
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+      <img src='./userListBg/bg4.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
+    <div className="board-container" style={{marginLeft:'100px', marginBottom:'100px', marginTop:'100px'}} >
       <ul className='user-ul'>
         {Array.isArray(users) && users.map((user) => (
+      <div  className="board_post">
           <li key={user.userId} onClick={() => handleClickUser(user)} className='cursor'>
             <img className="profile-img" src={'./profile/'+user.userProfile} alt='Profile' style={{ width: '100px', height: '100px'}}/><br/>
-          <span className='user-name'>{user.userName}</span></li>
+          <span className='user-name'>{user.userName}</span></li> 
+            </div>
         ))}
       </ul>
       {isShow && <UserModal selUser={selUser} onClose={onClose} isShow={isShow} />}
+    </div>
     </div>
   );
 };

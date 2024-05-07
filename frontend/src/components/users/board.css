@@ -78,3 +78,39 @@
     height: 80px; 
     margin-bottom: 10px;
   }
+
+  .user-ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board_post {
+  width: 15%;
+  margin: 2.5% 2.5%; /* 좌우에 2.5%의 마진을 추가하여 간격을 조정 */
+  display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+background-color: white;
+padding: 10px;
+margin-bottom: 10px;
+border-radius: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .board_post {
+    width: 30%; /* 화면이 작을 때 너비 조정 */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .board_post {
+    width: 45%; /* 더 작은 화면일 때 너비 조정 */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .board_post {
+    width: 90%; /* 아주 작은 화면일 때 너비 조정 */
+  }
+}

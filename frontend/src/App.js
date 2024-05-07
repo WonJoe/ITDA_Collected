@@ -1,3 +1,4 @@
+import "./App.css"
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 import { Route } from "react-router-dom/cjs/react-router-dom.min";
@@ -21,6 +22,13 @@ import Loading from "./components/pages/Loading";
 import Charge from "./components/Diamond/Charge";
 import BasketList from "./components/Basket/BasketList";
 import Pay from "./components/Payment/Pay";
+import CSBoardList from "./components/CustomerService/CSBoardList";
+import CSBoardWrite from "./components/CustomerService/CSBoardWrite";
+import CSBoardDetail from "./components/CustomerService/CSBoardDetail";
+import CSBoardEdit from "./components/CustomerService/CSBoardEdit";
+import CSAnswerWrite from "./components/CustomerService/CSAnswerWrite";
+import CSAnswerDetail from "./components/CustomerService/CSAnswerDetail";
+import CSAnswerEdit from "./components/CustomerService/CSAnswerEdit";
 import WeatherAndFashion from "./components/pages/WeatherAndFashion";
 
 
@@ -58,7 +66,7 @@ function App() {
 
 
   return (
-    <div style={{ minHeight: '100vh' }}> 
+    <div style={{ minHeight: '100vh' }} className="font"> 
       <Header user={user} handleLogout={handleLogout} isLoading={isLoading}/>
       <Container style={{ minHeight: 'calc(100vh - 280px)' }}>
         <Route path="/users" exact render={() => <UserList loggedInUser={loggedInUser} />} />
@@ -73,6 +81,15 @@ function App() {
         <Route path="/charge" exact component={Charge}/>
         <Route path="/basket" exact component={BasketList}/>
         <Route path="/pay" exact component={Pay}/>
+
+        {/* 고객센터 */}
+        <Route path="/boardlist" exact component={CSBoardList}/>
+        <Route path="/boardWrite" component={CSBoardWrite} />
+        <Route path="/boardDetail/:boardNo" component={CSBoardDetail} />
+        <Route path="/boardEdit/:boardNo" component={CSBoardEdit} />
+        <Route path="/answerWrite/:boardNo" component={CSAnswerWrite} />
+        <Route path="/answerDetail/:answerNo" component={CSAnswerDetail} />
+        <Route path="/answerEdit/:answerNo" component={CSAnswerEdit} />
 
         {/* 날씨 */}
         <Route path="/WeatherAndFashion" exact component={WeatherAndFashion}/>

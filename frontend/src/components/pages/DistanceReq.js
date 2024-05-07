@@ -3,7 +3,6 @@ import axios from 'axios';
 import address from '../../API_KEY';
 import { Button, Form, Card, Col, Row } from 'react-bootstrap';
 import { IoLocationSharp,IoDiamondOutline } from "react-icons/io5";
-import { Redirect } from 'react-router-dom';
 
 const DistanceReq = ({ user,setIsLoading }) => {
     const [data, setData] = useState([]);
@@ -114,15 +113,12 @@ const DistanceReq = ({ user,setIsLoading }) => {
                         )}
                     </div>
                         <br/>
-                            <Button style={{ background:'#cc99cc',borderColor:'white', width:'30%', height:'50px'}} onClick={search}>Near ITDA <IoDiamondOutline height={'100%'} color="#4A90E2" /> 30</Button>
+                            <Button style={{ background:'#cc99cc',borderColor:'white', width:'30%', height:'50px'}} onClick={search}>Near ITDA <IoDiamondOutline/> 30</Button>
                         <br/>
                     <p>{error}</p>
                 </>
             ) : (
-                (() => {
-                    alert('로그인이 필요한 페이지입니다.');
-                    return <Redirect to="/login" />;
-                })()
+                <p>로그인이 필요한 페이지입니다.</p>
             )}
         </div>
     );

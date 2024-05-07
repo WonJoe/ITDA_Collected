@@ -90,22 +90,18 @@ const CreateUser = ({ setIsLoading } ) => {
   
     // 파일 추가
     formData.append('uploadFile', createData.users.userProfile);
-  console.log("전달");
+
     try {
       const response = await axios.post(
         `${address.backendaddress}/users/create`,
-        // `${address.backendaddress}users/create`,
-        // formData, // FormData 객체를 전달
-        createData, // FormData 객체를 전달
+        formData, // FormData 객체를 전달
         {
           headers: {
-            // 'Content-Type': 'multipart/form-data', // Content-Type을 multipart/form-data로 설정
-            'Content-Type': 'application/json; charset=utf-8', // Content-Type을 multipart/form-data로 설정
+            'Content-Type': 'multipart/form-data', // Content-Type을 multipart/form-data로 설정
           },
           withCredentials: true,
         }
       );
-      console.log(response.data);
       history.push('/Complete');
     } catch (error) {
       console.error('Error:', error);
@@ -322,7 +318,6 @@ const handleFileChange = (e) => {
           <Form.Control
             type="file"
             name="users.userProfile"
-            // value={createData.users.userProfile}
             onChange={handleFileChange}
           />
           </Form.Group>

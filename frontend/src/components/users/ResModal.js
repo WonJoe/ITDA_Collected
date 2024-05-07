@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './UserModal.css';
-import { AiOutlineClose } from 'react-icons/ai';
+import { FaWindowClose } from "react-icons/fa";
 import { format } from 'date-fns';
 import axios from 'axios';
 import address from '../../API_KEY'
@@ -85,7 +85,7 @@ const ResModal = ({ request, onClose, onAccept, onRejected, isLoggedIn }) => {
         <p>#{request.sender.userName} #{request.sender.userAge}살 #{request.sender.userAddress}</p>
         <p>{formatMeetingDateTime(request.meetingDate)} {request.meetingTime}<br/>{request.meetingPlace}에서 만나고 싶어요!</p>
 
-        <span><button onClick={onClose}><AiOutlineClose /></button></span>
+        <span><button style={{backgroundColor:'transparent',border:'none'}} onClick={onClose}><FaWindowClose  style={{color:'white', fontSize:'30px'}}/></button></span>
         {isLoggedIn && (
           <div>
              <button className="button_green" onClick={handleAccept}>수락</button>&nbsp;&nbsp;&nbsp;

@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Users implements Serializable {
 
@@ -24,29 +26,29 @@ public class Users implements Serializable {
     @Column(name = "user_id", unique = true)
     private String userId;
 
+    @Column(name = "user_name")
+    private String userName;
+
     @Column(name = "user_password")
     private String userPassword;
 
     @Column(name = "user_email")
     private String userEmail;
 
-    @Column(name = "user_name")
-    private String userName;
-
     @Column(name = "user_gender")
     private String userGender;
-
-    @Column(name = "user_age")
-    private int userAge;
-
-    @Column(name = "user_height")
-    private int userHeight;
 
     @Column(name = "user_address")
     private String userAddress;
 
+    @Column(name = "user_age")
+    private String userAge;
+
     @Column(name = "user_hobby")
     private String userHobby;
+
+    @Column(name = "user_height")
+    private int userHeight;
 
     @Column(name = "user_tel")
     private String userTel;
@@ -54,7 +56,7 @@ public class Users implements Serializable {
     @Column(name = "user_weight")
     private int userWeight;
 
-    @Column(name = "user_profile") // 회원가입 시 첨부할 이미지 파일
+    @Column(name = "user_profile")
     private String userProfile;
 
     @Column(name = "user_MBTI")

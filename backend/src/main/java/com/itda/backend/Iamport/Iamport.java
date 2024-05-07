@@ -13,7 +13,7 @@ import lombok.Data;
 @Table(name = "Payment")
 @Entity
 public class Iamport {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long payment_id;

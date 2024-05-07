@@ -43,7 +43,7 @@ const MeetSchedule = () => {
 
   return (
     <div>
-      <h1>예정된 만남 일정을 확인해보세요.</h1>
+      <h1 style={{textAlign:'center', marginTop:'20px'}}>예정된 만남 일정을 확인해보세요.</h1>
       <div className="schedule-table">
         <div className="schedule-header">
           <span></span>

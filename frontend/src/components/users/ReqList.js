@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ResModal from './ResModal';
 import './UserModal.css';
+import './board.css';
 import address from '../../API_KEY'
+import { BsEnvelopePaperHeart } from 'react-icons/bs';
 
 const ReqList = () => {
   const [requests, setRequests] = useState([]);
@@ -66,19 +68,25 @@ const ReqList = () => {
 
   return (
     <div>
-      <h2>새로운 만남 요청이 들어왔습니다.</h2>
+   <h4 style={{textAlign:'center',marginTop:'20px'}}>새로운 만남 요청이 들어왔습니다<BsEnvelopePaperHeart /></h4>
+    <div className="board-container">
+
       <ul className='user-ul'>
       {requests.map((request) => (
   request.recipient.userId === currentUser && request.status === 'WAITING' &&(
-    <li key={request.no} onClick={() => handleClickRequest(request)} className='cursor user-li'>
+    <div  className="board_post">
+    <li key={request.no} onClick={() => handleClickRequest(request)} className='cursor user-li' style={{ padding: '0',
+  margin: '0'}}>
       <img className="profile-img" src={'./profile/' + request.sender.userProfile} alt="Profile" style={{ width: '100px', height: '100px'}}/><br/>
       <span className='user-name'>{request.sender.userName}</span>
     </li>
+    </div>
   )
-))}
+  ))}
 
       </ul>
       {showModal && selectedRequest && <ResModal request={selectedRequest} onClose={handleCloseModal}  onAccept={handleAccept} onRejected={handleRejected} isLoggedIn={isLoggedIn} />}
+  </div>
     </div>
   );
 };
