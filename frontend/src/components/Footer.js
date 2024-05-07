@@ -58,10 +58,11 @@ const Footer = () => {
               </li>
               <li>
                 <a className="dribbble" href="/"><i className="fab fa-dribbble"></i></a>
-              </li>
-              <li>
-                <a className="linkedin" href="/"><i className="fab fa-linkedin-in"></i></a>
               </li> */}
+              <li style={{width:'40px'}}>
+                <a className="linkedin" href="https://github.com/WonJoe/ITDA_Collected">
+                  <img style={{width:'100%', margin:'auto'}} src='img/githubicon.png' alt='깃허브 이미지'></img></a>
+              </li>
             </ul>
           </div>
         </div>

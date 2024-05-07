@@ -10,6 +10,7 @@
     transition: all 0.4s ease;
   
   }
+
   
   .button_blue:hover {
     background-color: #5291e9;
@@ -19,13 +20,20 @@
   }
 
 .chargeButton {
-    width: 50%;
-    min-width: max-content;
+    width: 40%;
+    min-width: 300px;
     height: 75px;
     margin-top: 50px;
     font-size: 25px !important;
     background-color: pink !important;
     border-color: #ffffff !important;
+    border-radius: 20px;
+    display: ruby !important;
+}
+
+.chargeButton span {
+  vertical-align: middle;
+  height: 100% !important;
 }
 .chargeButton:hover {
   background-color: #cc99cc !important;

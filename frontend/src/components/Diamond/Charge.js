@@ -212,12 +212,13 @@ const Charge = () => {
                 padding: '15px 32px',
                 textAlign: 'center',
                 textDecoration: 'none',
-                display: 'inline-block',
+                display: 'flex',
+                verticalAlign:'middle',
                 fontSize: '16px',
-                margin: '4px 2px',
+                margin: '4px auto',
                 cursor: 'pointer',
                 borderRadius: '10px',
-                marginBottom : '50px'
+                marginBottom : '50px',
             }}>
               <img src="./img/Kakaopay.png" alt="Payment Icon" style={{
                   width: 'auto',
@@ -226,7 +227,7 @@ const Charge = () => {
                   left: 0,
                   marginRight:'15px'
               }} />
-              결제하기
+              <span>결제하기</span>
             </button>
         </div>
     );
