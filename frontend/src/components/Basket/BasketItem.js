@@ -14,7 +14,7 @@ const Item = ({ item }) => {
             <div style={{width:'20%'}}>{orderNumber}</div>
             <div style={{width:'30%'}}><IoDiamondOutline /> {amount}</div>
             <div style={{width:'40%'}}>{purchaseTime}</div>
-            <div style={{width:'20%'}}>{price}원</div>
+            <div style={{width:'20%'}}>{price.toLocaleString()}원</div>
         </div>
     );
 };

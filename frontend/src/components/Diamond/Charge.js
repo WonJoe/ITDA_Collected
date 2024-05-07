@@ -199,7 +199,7 @@ const Charge = () => {
                         onChange={() => setSelectedOption(option)}
                         style={{ marginTop: '10px' }}
                     >
-                        {option.diamonds} 개
+                        {option.diamonds.toLocaleString()} 개
                     </ToggleButton>
 
                     <div style={{ fontSize: '18px', color: '#4A90E2', fontWeight: 'bold', marginTop: '10px' }}>₩ {option.price.toLocaleString()}</div>

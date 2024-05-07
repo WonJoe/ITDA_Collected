@@ -4,19 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-import javafx.scene.image.Image;
 import lombok.Data;
 
 @Data
 @Entity
-public class Users {
+public class Users implements Serializable {
 
     @Id
     @Column(name = "user_no")
@@ -57,7 +54,7 @@ public class Users {
     @Column(name = "user_weight")
     private int userWeight;
 
-    @Column(name = "user_profile")  // 회원가입 시 첨부할 이미지 파일 
+    @Column(name = "user_profile") // 회원가입 시 첨부할 이미지 파일
     private String userProfile;
 
     @Column(name = "user_MBTI")

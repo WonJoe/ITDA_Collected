@@ -31,7 +31,7 @@ public class Iamport {
     private String orderNumber;
 
     @Column(nullable = true)
-    private String price;
+    private int price;
 
     @Column(nullable = true)
     private String purchaseTime;

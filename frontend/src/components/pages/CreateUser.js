@@ -94,7 +94,7 @@ const CreateUser = ({ setIsLoading } ) => {
     try {
       const response = await axios.post(
         `${address.backendaddress}/users/create`,
-        // "http://localhost:4000/users/create",
+        // `${address.backendaddress}users/create`,
         // formData, // FormData 객체를 전달
         createData, // FormData 객체를 전달
         {

@@ -21,6 +21,7 @@ import Loading from "./components/pages/Loading";
 import Charge from "./components/Diamond/Charge";
 import BasketList from "./components/Basket/BasketList";
 import Pay from "./components/Payment/Pay";
+import WeatherAndFashion from "./components/pages/WeatherAndFashion";
 
 
 
@@ -72,6 +73,9 @@ function App() {
         <Route path="/charge" exact component={Charge}/>
         <Route path="/basket" exact component={BasketList}/>
         <Route path="/pay" exact component={Pay}/>
+
+        {/* 날씨 */}
+        <Route path="/WeatherAndFashion" exact component={WeatherAndFashion}/>
 
         {/* Footer 영역 SSR 고려 */}
         <Route path="/ConditionsOfUse" exact component={ConditionsOfUse}/>
