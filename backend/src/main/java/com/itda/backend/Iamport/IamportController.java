@@ -80,5 +80,13 @@ public class IamportController {
         return purchaseentity;
     }
     
+    @PostMapping("/orderlist")
+    public ResponseEntity<?> getList(@RequestBody Iamport iamport) {
+        
+        ResponseEntity<?> purchaseentity = new ResponseEntity<>(iamportService.findByUserNo(iamport.getUserNo()), HttpStatus.OK);
+
+        return purchaseentity;
+
+    }
     
 }

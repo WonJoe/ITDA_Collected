@@ -1,16 +1,20 @@
 import React from 'react';
 import { IoDiamondOutline } from "react-icons/io5";
 
-const Item = ({ item, index }) => {
+const Item = ({ item }) => {
 
-    const {diamonds,price,basketDate} = item
+    if (!item) {
+        return <div style={{fontSize:'35px',margin:'20px 0'}}>비어있습니다</div>;
+    }
+
+    const {orderNumber,amount,price,purchaseTime} = item
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '10px' }}>
-            <span>{index + 1}</span>
-            <span><IoDiamondOutline /> {diamonds}</span>
-            <span>{basketDate}</span>
-            <span>{price}원</span>
+            <div style={{width:'20%'}}>{orderNumber}</div>
+            <div style={{width:'30%'}}><IoDiamondOutline /> {amount}</div>
+            <div style={{width:'40%'}}>{purchaseTime}</div>
+            <div style={{width:'20%'}}>{price}원</div>
         </div>
     );
 };

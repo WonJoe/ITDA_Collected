@@ -62,7 +62,6 @@ const Charge = () => {
         if (window.confirm(`다이아 : ${selectedOption.diamonds}개\n가격 : ${selectedOption.price}원\n구매 하시겠습니까?`)) { // 구매 클릭시 한번 더 확인하기
             if (response.data.userName) { // 회원만 결제 가능
                 // const emoticonName = document.getElementById('title').innerText
-                const emoticonName = '이모티콘이름'
 
                 IMP.init(identificationCode); // 가맹점 식별코드
                 IMP.request_pay({
@@ -99,20 +98,20 @@ const Charge = () => {
                         })
                         .then(res => {
                           console.log(res.data);
-                          // 여기서 필요한 작업을 수행하십시오.
+                          window.location.href='/basket'
                       })
                       .catch(error => {
                           console.error('Error sending purchase info:', error);
                       });
 
-                        if (response.status == 200) { // DB저장 성공시
+                        if (response.status === 200) { // DB저장 성공시
                             alert('결제 완료!')
                             // window.location.reload();
                         } else { // 결제완료 후 DB저장 실패시
                             alert(`error:[${response.status}]\n결제요청이 승인된 경우 관리자에게 문의바랍니다.`);
                             // DB저장 실패시 status에 따라 추가적인 작업 가능성
                         }
-                    } else if (rsp.success == false) { // 결제 실패시
+                    } else if (rsp.success === false) { // 결제 실패시
                         alert(rsp.error_msg)
                     }
                 });

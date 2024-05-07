@@ -49,6 +49,7 @@ const Header = ({ user, handleLogout, isLoading }) => {
                         <NavDropdown className="nav-dropdown-item" title={`${user.userName} 님 반갑습니다.  `}>
                             <NavDropdown.Item className="nav-dropdown-item"><IoDiamondOutline />{user.diaQty}</NavDropdown.Item>
                             <NavDropdown.Item as={NavLink} to="/charge" className="nav-dropdown-item">다이아 구매</NavDropdown.Item>
+                            <NavDropdown.Item as={NavLink} to="/basket" className="nav-dropdown-item">구매 목록</NavDropdown.Item>
                             <NavDropdown.Item className="nav-dropdown-item" onClick={handleLogout}>로그아웃</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
