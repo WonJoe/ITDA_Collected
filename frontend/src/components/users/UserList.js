@@ -5,12 +5,34 @@ import './UserModal.css';
 import './board.css';
 import address from '../../API_KEY'
 import { BsEnvelopePaperHeart } from "react-icons/bs";
+import './UserList.css'
+import { GoChevronUp } from "react-icons/go";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [selUser, setSelUser] = useState(null);
   const [isShow, setIsShow] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleScroll = () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 100) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // 페이지가 스크롤될 때마다 상태 업데이트
+  window.addEventListener('scroll', handleScroll);
 
   useEffect(() => {
     checkLoginStatus();
@@ -64,10 +86,13 @@ const UserList = () => {
 
   return (
     <div>
+      {isVisible && (
+        <div className='tabscroll' onClick={scrollToTop}><GoChevronUp style={{fontSize:'25px'}} /></div>
+      )}
             <img src='./userListBg/service.png' alt='service' style={{marginTop:'100px'}}/>
       <img src='./userListBg/bg2.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
       <img src='./userListBg/bg3.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
-      <div id="carouselExample" className="carousel slide" style={{marginLeft:'100px'}}>
+      <div id="carouselExample" className="carousel slide" style={{marginLeft:'0px'}}>
         <br/>
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -87,7 +112,7 @@ const UserList = () => {
         </button>
       </div>
       <img src='./userListBg/bg4.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
-    <div className="board-container" style={{marginLeft:'100px', marginBottom:'100px', marginTop:'100px'}} >
+    <div className="board-container" style={{marginBottom:'100px', marginTop:'100px'}} >
       <ul className='user-ul'>
         {Array.isArray(users) && users.map((user) => (
       <div  className="board_post">

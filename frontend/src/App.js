@@ -1,7 +1,7 @@
 import "./App.css"
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
-import { Route } from "react-router-dom/cjs/react-router-dom.min";
+import { Route,Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import Login from "./components/users/Login";
 import UserList from "./components/users/UserList";
 import { useState,useEffect } from "react";
@@ -16,6 +16,7 @@ import LocationServicePolicy from "./components/FooterDescription/LocationServic
 import PrivacyPolicy from "./components/FooterDescription/PrivacyPolicy";
 import YouthProtectionPolicy from "./components/FooterDescription/YouthProtectionPolicy";
 import Footer from "./components/Footer";
+import Main from "./components/Main";
 import address from './API_KEY'
 import axios from 'axios';
 import Loading from "./components/pages/Loading";
@@ -69,6 +70,10 @@ function App() {
     <div style={{ minHeight: '100vh' }} className="font"> 
       <Header user={user} handleLogout={handleLogout} isLoading={isLoading}/>
       <Container style={{ minHeight: 'calc(100vh - 280px)' }}>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route path="/home" exact render={() => <Main />} />
         <Route path="/users" exact render={() => <UserList loggedInUser={loggedInUser} />} />
         <Route path="/login" exact render={() => <Login setLoggedInUser={setLoggedInUser} />} />
         <Route path="/req_list" component={ReqList} />

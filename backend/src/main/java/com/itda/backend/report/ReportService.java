@@ -26,17 +26,17 @@ public class ReportService {
         return usersRepository.findByUserId(reporterId);
     }
 
-    public Board findByBoardNo(Long boardNo) {
-        System.out.println(boardNo);
-        return boardRepository.findByBoardNo(boardNo);
+    public Board findByPostNo(Long postNo) {
+        System.out.println(postNo);
+        return boardRepository.findByPostNo(postNo);
     }
 
-    public Report findByReporterIdAndBoardNo(String reporterId, Long boardNo) {
-        return reportRepository.findByReporterIdAndBoardNo(reporterId, boardNo);
+    public Report findByReporterIdAndPostNo(String reporterId, Long boardNo) {
+        return reportRepository.findByReporterIdAndPostNo(reporterId, boardNo);
     }
 
     public Report reportHandle(String reporterId, String reportedId, String title, String content, String reportReason,
-            LocalDate reportDate, Long boardNo, Board boardInfo) {
+            LocalDate reportDate, Long postNo, Board boardInfo) {
 
         Users existingReporterUser = usersRepository.findByUserId(reporterId);
         Users existingReportedUser = usersRepository.findByUserId(reportedId);
@@ -58,12 +58,12 @@ public class ReportService {
         reportInfo.setContent(content);
         reportInfo.setReportReason(reportReason);
         reportInfo.setReportDate(reportDate);
-        reportInfo.setBoardNo(boardNo);
+        reportInfo.setPostNo(postNo);
         reportInfo.setBoardInfo(boardInfo);
 
         Report saveReport = reportRepository.save(reportInfo);
 
-        Board reportedBoard = boardRepository.findByBoardNo(boardNo);
+        Board reportedBoard = boardRepository.findByPostNo(postNo);
 
         if (reportedBoard != null) {
             reportedBoard.setReportCount(reportedBoard.getReportCount() + 1);

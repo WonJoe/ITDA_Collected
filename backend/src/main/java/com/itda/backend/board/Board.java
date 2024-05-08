@@ -21,10 +21,10 @@ import lombok.Data;
 public class Board {
 
     @Id
-    @Column(name = "board_no")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq_generator")
-    @SequenceGenerator(name = "board_seq_generator", sequenceName = "BOARD_SEQ", allocationSize = 1)
-    private Long boardNo;
+    @Column(name = "post_no")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_generator")
+    @SequenceGenerator(name = "post_seq_generator", sequenceName = "post_SEQ", allocationSize = 1)
+    private Long postNo;
 
     @Column
     private String title;

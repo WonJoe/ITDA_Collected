@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import address from '../../API_KEY'
+import { useHistory, useParams } from 'react-router-dom';
+import address from '../../API_KEY';
 
 const CSBoardEdit = () => {
   const { boardNo } = useParams();
@@ -11,6 +11,7 @@ const CSBoardEdit = () => {
     boardContent: '',
     boardSubject: '',
   });
+  const history = useHistory();
 
   const fetchSessionId = async () => {
     try {
@@ -29,7 +30,7 @@ const CSBoardEdit = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/boardDetail?boardNo=${boardNo}`, {withCredentials:true}
+          `${address.backendaddress}/boardDetail?boardNo=${boardNo}`, {withCredentials:true}
         );
         setBoardDetail(response.data);
       } catch (error) {
@@ -56,11 +57,12 @@ const CSBoardEdit = () => {
         console.log('넘기는 제목:' + boardDetail.boardSubject);
         setBoardDetail({ ...boardDetail});
         const response = await axios.post(
-          `http://localhost:4000/board/edit`,
+          `${address.backendaddress}/board/edit`,
           boardDetail,{withCredentials:true}
         );
         if (response.status === 200) {
           alert('글 수정 완료');
+          history.push(`/boardDetail/${boardNo}`); // 리다이렉트 수행
         }
       } catch (error) {
         console.error('데이터 넘기다가 에러 발생:', error);
@@ -68,6 +70,10 @@ const CSBoardEdit = () => {
     } else {
       alert('사용자 정보가 다릅니다.');
     }
+  };
+
+  const handleCancel = () => {
+    history.push(`/boardDetail/${boardNo}`); // 취소 버튼 클릭 시 해당 글 상세 페이지로 이동
   };
 
   return (
@@ -97,7 +103,7 @@ const CSBoardEdit = () => {
       </div>
       <div>
         <button onClick={handleBoardEdit}>등록</button>
-        <button>취소</button>
+        <button onClick={handleCancel}>취소</button>
       </div>
     </div>
   );

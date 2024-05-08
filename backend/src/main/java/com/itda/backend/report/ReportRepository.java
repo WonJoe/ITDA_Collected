@@ -8,5 +8,5 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
 
     Report findByReporterId(Users reforterId);
 
-    Report findByReporterIdAndBoardNo(String reporterId, Long boardNo);
+    Report findByReporterIdAndPostNo(String reporterId, Long postNo);
 }

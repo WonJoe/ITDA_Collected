@@ -67,7 +67,7 @@ const Charge = () => {
                 IMP.request_pay({
                     pg: `${PGcode}.${PGStoreID}`, // PG사 코드표에서 선택
                     pay_method: 'card', // 결제 방식
-                    merchant_uid: "IMP" + makeMerchantUid, // 결제 고유 번호
+                    merchant_uid: "ITDA" + makeMerchantUid, // 결제 고유 번호
                     name: '다이아', // 제품명
                     amount: selectedOption.price, // 가격
                     //구매자 정보 ↓

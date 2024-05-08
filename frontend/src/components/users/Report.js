@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
+import { FaWindowClose } from "react-icons/fa";
 import './UserModal.css';
 import { PiSirenDuotone } from 'react-icons/pi';
 
@@ -27,7 +27,7 @@ const Report = ({selUser,onClose,report}) => {
                         <option value="스팸 혹은 불필요한 정보">스팸 혹은 불필요한 정보</option>
                     </select>
                 </p>
-                <span><button onClick={onClose}><AiOutlineClose /></button></span>
+                <span><button style={{backgroundColor:'transparent',border:'none'}} onClick={onClose}><FaWindowClose  style={{color:'white', fontSize:'30px'}}/></button></span>
                 <div>
                         <button className="button_red"  onClick={() => report({reportReason},selUser.title,selUser.content,selUser.writerId)}>사용자 신고하기</button>
                 </div>

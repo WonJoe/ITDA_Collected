@@ -30,7 +30,7 @@ const UserModal = ({ selUser, onClose }) => {
             <div className='popup'>
                 <img src={'./profile/' + selUser.userProfile} alt='Profile' width='400px' height='auto' />
                 <h2>{selUser.userName}</h2>
-                <p>#{calculateAge(selUser.userBirth)}살 #{selUser.userAddress} #{selUser.userMBTI}</p>
+                <p>#{calculateAge(selUser.userAge)}살 #{selUser.userAddress} #{selUser.userMBTI}</p>
                 <span><button style={{backgroundColor:'transparent',border:'none'}} onClick={onClose}><FaWindowClose  style={{color:'white', fontSize:'30px'}}/></button></span>
                 {showMeetRequestModal && (
                 <div className="MeetRequestModal">

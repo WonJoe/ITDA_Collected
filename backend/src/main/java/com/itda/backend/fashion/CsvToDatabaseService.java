@@ -1,6 +1,5 @@
 package com.itda.backend.fashion;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +16,6 @@ public class CsvToDatabaseService {
     private final String fashionPath;
     private final FashionRepository fashionRepository;
 
-    @Autowired
     public CsvToDatabaseService(@Value("${fashionPath}") String fashionPath, FashionRepository fashionRepository) {
         this.fashionPath = fashionPath;
         this.fashionRepository = fashionRepository;
@@ -29,11 +27,15 @@ public class CsvToDatabaseService {
         while ((line = reader.readLine()) != null) {
             // CSV 데이터를 파싱하여 데이터베이스에 저장
             String[] parts = line.split(","); // CSV 파일 쉼표로 구분
-            Fashion fashion = Fashion.builder()
-                    .image(parts[0])
-                    .description(parts[1])
-                    .build(); // 생성자를 통해 필드 설정
-            fashionRepository.save(fashion); // DB 에 저장
+    
+            // 첫 번째 열이 "Image"이고 두 번째 열이 null이 아닌 경우에만 데이터를 저장
+            if (!parts[0].equalsIgnoreCase("\"Image\"") && parts.length > 1 && parts[1] != null && !parts[1].isEmpty()) {
+                Fashion fashion = Fashion.builder()
+                        .image(parts[0])
+                        .description(parts[1])
+                        .build(); // 생성자를 통해 필드 설정
+                fashionRepository.save(fashion); // DB 에 저장
+            }
         }
         reader.close();
     }

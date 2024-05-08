@@ -29,8 +29,8 @@ public class Report {
     @ManyToOne
     private Users reporterUser;
 
-    @Column(name = "board_no")
-    private Long boardNo;
+    @Column(name = "post_no")
+    private Long postNo;
 
     @ManyToOne
     private Board boardInfo;

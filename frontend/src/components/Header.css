@@ -4,26 +4,18 @@
 }
 
 .Nav {
-  display: flex;
-  flex-grow: 1; /* 아이템들이 가능한 최대 너비를 차지하도록 함 */
-  justify-content: space-between; /* 아이템들을 최대한 넓게 배치 */
+  padding: 20px 0; /* 상단과 하단 여백을 한 번에 설정 */
+justify-content: center space-between;
 }
 
 .nav-link-home {
-  color: #ffffff !important ;/* 비활성화된 링크의 텍스트색 */
-  width: fit-content;
-  height: auto;
-  font-size: 30px !important;
+  color: red !important ;/* 비활성화된 링크의 텍스트색 */
   font-family: fantasy !important;
 }
 
 .nav-link {
-  color: #ffffff !important ;/* 비활성화된 링크의 텍스트색 */
-  width: fit-content;
-  height: auto;
-  font-size: 22px !important;
+  color: red !important ;/* 비활성화된 링크의 텍스트색 */
   font-family: fantasy !important;
-  font-weight: 400 !important;
 
   --bs-nav-link-padding-x: 0;
   --bs-nav-link-padding-y: 0.5rem;
@@ -34,10 +26,29 @@
 
 
 .active-link {
-  background-color: #ffffff !important; /* 활성화된 링크의 배경색 */
-  color: pink !important; /* 활성화된 링크의 텍스트색 */
-  border-radius: 10px !important;
+  color: transparent ; /* 마우스 호버시 아이콘 색상 변경 */
+  background-color: red;
+  color: #fff;
+  border-radius: 10%;
+  padding: 5px;
+
   
+}
+/* 호버 효과 */
+.icon:hover {
+  color: transparent; /* 마우스 호버시 아이콘 색상 변경 */
+  background-color: red;
+  color: #fff;
+  border-radius: 10%;
+  padding: 5px; /* 아이콘 주위의 여백 */
+
+  /* 다른 스타일 추가 가능 */
+}
+
+.active-link:hover {
+  background-color: transparent; /* 마우스를 올렸을 때 배경색 변경 */
+  color: #FF0000; /* 마우스를 올렸을 때 텍스트색 변경 */
+  border-radius: 10px; /* border-radius에 !important 사용하지 않음 */
 }
 
 .nav-dropdown-item {
@@ -47,3 +58,4 @@
   width: fit-content;
  
 }
+

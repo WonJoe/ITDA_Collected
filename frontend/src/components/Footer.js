@@ -6,6 +6,7 @@ const Footer = () => {
   return (
     <footer className="site-footer">
       <div className="container">
+      <hr className="small" />
         <div className="row">
           {/* <div className="col-sm-12 col-md-6">
             <h6>About</h6>
@@ -38,8 +39,9 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <hr className="small" />
+        
       </div>
+      
       <div className="container">
         <div className="row">
           <div className="col-md-8 col-sm-6 col-12">
@@ -55,13 +57,15 @@ const Footer = () => {
               </li>
               <li>
                 <a className="twitter" href="/"><i className="fab fa-twitter"></i></a>
-              </li>
-              <li>
-                <a className="dribbble" href="/"><i className="fab fa-dribbble"></i></a>
-              </li>
-              <li>
-                <a className="linkedin" href="/"><i className="fab fa-linkedin-in"></i></a>
               </li> */}
+              <li style={{width:'40px'}}>
+                <a className="dribbble" href="https://github.com/Uangi/ITDA">
+                  <img style={{width:'100%', margin:'auto'}} src='img/githubicon.png' alt='깃허브 이미지'></img></a>
+              </li>
+              <li style={{width:'40px'}}>
+                <a className="linkedin" href="https://github.com/WonJoe/ITDA_Collected">
+                  <img style={{width:'100%', margin:'auto'}} src='img/githubicon.png' alt='깃허브 이미지'></img></a>
+              </li>
             </ul>
           </div>
         </div>

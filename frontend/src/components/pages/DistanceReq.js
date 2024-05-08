@@ -32,7 +32,7 @@ const DistanceReq = ({ user,setIsLoading }) => {
         })
         .then(res => {
             setData(res.data);
-            console.log(res.data);
+            // console.log(res.data);
             setLoading(false);
             setError('');
         })
@@ -48,6 +48,17 @@ const DistanceReq = ({ user,setIsLoading }) => {
         
     }, [num, user, valueId]);
 
+    // let birth = 25; // 출생일 (예: YYMMDD)
+    // let birthYear = Math.floor(birth / 10000); // 출생 연도
+    // let adjustedBirthYear = (birthYear > 30) ? 1900 + birthYear : 2000 + birthYear; // 2000년 이후 출생한 경우 보정
+    // let today = new Date(); // 현재 날짜
+    // let todayYear = today.getFullYear(); // 현재 연도
+
+    // // 한국식 나이 계산
+    // let age2 = todayYear - adjustedBirthYear + 1;
+
+    // console.log(age2); // 계산된 한국식 나이 출력
+    
     const search = () => {
         setIsLoading(true);
         setNum(num + 1);
@@ -91,8 +102,18 @@ const DistanceReq = ({ user,setIsLoading }) => {
                                                     <Card.Title style={{fontSize:'30px', color:'white'}}>{item.user_id}</Card.Title>
                                                     <Card.Text style={{fontSize:'25px', color:'white'}}>
                                                         #{item.user_Address} #{item.distance}Km
-                                                        <br/>
-                                                        #{item.user_Age}살 #{item.user_MBTI}
+                                                        <br />
+                            {(() => {
+                                // 나이 계산
+                                let birth = parseInt(item.user_Age); // 출생일 (예: YYMMDD)
+                                let birthYear = Math.floor(birth / 10000); // 출생 연도
+                                let adjustedBirthYear = (birthYear > 30) ? 1900 + birthYear : 2000 + birthYear; // 2000년 이후 출생한 경우 보정
+                                let today = new Date(); // 현재 날짜
+                                let todayYear = today.getFullYear(); // 현재 연도
+                                let age = todayYear - adjustedBirthYear + 1;
+                                // 나이 출력
+                                return `${age}살`;
+                            })()} #{item.user_MBTI}
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
@@ -102,8 +123,9 @@ const DistanceReq = ({ user,setIsLoading }) => {
                                     <Col style={{width:'100%'}}>
                                         <Card>
                                             <Card.Body>
-                                                <Card.Text>
+                                                <Card.Text style={{color:'red'}}>
                                                     더 이상 요청할 수 없습니다.
+                                                    <br/>
                                                 </Card.Text>
                                             </Card.Body>
                                         </Card>

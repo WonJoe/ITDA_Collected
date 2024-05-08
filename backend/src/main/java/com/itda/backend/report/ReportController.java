@@ -27,10 +27,10 @@ public class ReportController {
         String reporterId = request.getReporterId();
         Users reporterUser = reportService.findByUserId(reporterId);
 
-        Long boardNo = request.getBoardNo();
-        Board boardInfo = reportService.findByBoardNo(boardNo);
+        Long postNo = request.getPostNo();
+        Board boardInfo = reportService.findByPostNo(postNo);
 
-        Report existingReport = reportService.findByReporterIdAndBoardNo(reporterId, boardNo);
+        Report existingReport = reportService.findByReporterIdAndPostNo(reporterId, postNo);
 
         if (existingReport != null) {
             throw new IllegalArgumentException("이미 접수된 신고입니다.");
@@ -45,15 +45,15 @@ public class ReportController {
             String reportReason = request.getReportReason();
 
             return reportService.reportHandle(reporterId, reportedId, title, content, reportReason,
-                    request.getReportDate(), boardNo, boardInfo);
+                    request.getReportDate(), postNo, boardInfo);
         } else {
             throw new IllegalArgumentException("신고자의 정보를 찾을 수 없습니다.");
         }
     }
 
     @GetMapping("/getUser")
-    public Board getUser(@RequestParam Long boardNo) {
-        return reportService.findByBoardNo(boardNo);
+    public Board getUser(@RequestParam Long postNo) {
+        return reportService.findByPostNo(postNo);
     }
 
 }

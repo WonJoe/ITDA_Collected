@@ -1,24 +1,45 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import address from '../../API_KEY'
 
 const CSAnswerWrite = () => {
+  const [sessionId, setSessionId] = useState('');
   const { boardNo } = useParams();
+  const history = useHistory(); // useHistory 추가
+
   const [boardDetail, setBoardDetail] = useState({
     boardContent: '',
     boardSubject: '',
+    boardWriteId: ''
   });
 
   const [answer, setAnswer] = useState({
     answerContent: '',
     answerSubject: '',
   });
+  
+  useEffect(() => {
+    fetchSessionId();
+  }, []);
+
+  const fetchSessionId = async () => {
+    try {
+      const response = await axios.get(`${address.backendaddress}/get_session_user_id`, {
+        withCredentials: true 
+      });
+      setSessionId(response.data);
+      console.log('세션 아이디 : ',response.data);
+    } catch (error) {
+      console.error('Error fetching session id:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/boardDetail?boardNo=${boardNo}`,{withCredentials:true}
+          `${address.backendaddress}/boardDetail?boardNo=${boardNo}`,{withCredentials:true}
         );
         setBoardDetail(response.data);
       } catch (error) {
@@ -31,18 +52,11 @@ const CSAnswerWrite = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setAnswer({ ...answer, [id]: value });
+    setAnswer({ ...answer, [id]: value, boardWriteId : sessionId });
   };
 
   const handleAnswerWrite = (e) => {
     e.preventDefault();
-    // if (
-    //   answer.userEmail.trim() === 'admin' &&
-    //   answer.userNickname.trim() === 'admin'
-    // ) {
-    // } else {
-    //   alert('관리자 권한이 필요합니다.');
-    // }
     handleSubmit(e);
   };
 
@@ -51,7 +65,7 @@ const CSAnswerWrite = () => {
     console.log('handleSubmit 실행');
 
     try {
-      const ok = await axios.post(`http://localhost:4000/answer/write`, {
+      const ok = await axios.post(`${address.backendaddress}/answer/write`, {
         ...answer,
         boardNo,
       });
@@ -65,6 +79,10 @@ const CSAnswerWrite = () => {
     }
   };
 
+  const handleCancel = () => {
+    history.push(`/boardDetail/${boardNo}`); // 취소 버튼 클릭 시 해당 글 상세 페이지로 이동
+  };
+
   return (
     <div>
       AnswerWrite
@@ -76,6 +94,7 @@ const CSAnswerWrite = () => {
           value={boardDetail.boardNo || ''}
           readOnly
         />
+        <br/>
         유저가 남긴 글 내용
         <input
           type="text"
@@ -103,7 +122,7 @@ const CSAnswerWrite = () => {
       </div>
       <div>
         <button onClick={handleAnswerWrite}>등록</button>
-        <button>취소</button>
+        <button onClick={handleCancel}>취소</button> {/* 취소 버튼 클릭 시 handleCancel 함수 실행 */}
       </div>
     </div>
   );

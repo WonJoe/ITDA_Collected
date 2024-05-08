@@ -28,6 +28,13 @@ const ResModal = ({ request, onClose, onAccept, onRejected, isLoggedIn }) => {
     }
   };
 
+  const calculateAge = (birthYear) => {
+    const currentYear = new Date().getFullYear();
+    const yearString = birthYear.toString();
+    const shortenedYear = parseInt(yearString.substring(0, 2));
+    return currentYear - (parseInt(shortenedYear) + 1900);
+};
+
   const handleAccept = async () => {
     try {
       const requestData = {
@@ -81,8 +88,8 @@ const ResModal = ({ request, onClose, onAccept, onRejected, isLoggedIn }) => {
        <div className='bg'></div>
        <div className='popup'>
         <h2>{request.sender.userName} 님께서 만남 요청을 하셨어요</h2>
-        <img src={'./profile/' + request.sender.userProfile} alt="프로필 사진" />
-        <p>#{request.sender.userName} #{request.sender.userAge}살 #{request.sender.userAddress}</p>
+        <img style={{width:'400px'}}src={'./profile/' + request.sender.userProfile} alt="프로필 사진" />
+        <p>#{request.sender.userName} #{calculateAge(request.sender.userAge)}살 #{request.sender.userAddress}</p>
         <p>{formatMeetingDateTime(request.meetingDate)} {request.meetingTime}<br/>{request.meetingPlace}에서 만나고 싶어요!</p>
 
         <span><button style={{backgroundColor:'transparent',border:'none'}} onClick={onClose}><FaWindowClose  style={{color:'white', fontSize:'30px'}}/></button></span>

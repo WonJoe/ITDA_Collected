@@ -38,7 +38,7 @@ function Board() {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(`${address.backendaddress}/posts`);
-      const sortedPosts = response.data.sort((a, b) => b.boardNo - a.boardNo);
+      const sortedPosts = response.data.sort((a, b) => b.postNo - a.postNo);
     setPosts(sortedPosts);
     setWriterId(response.data[0].writerId);
     } catch (error) {
@@ -50,7 +50,7 @@ function Board() {
   try{
     const response = await axios.get(`${address.backendaddress}/report/getUser`,{
     params:{
-      boardNo:post
+      postNo:post
     },  
     withCredentials: true
   });
@@ -79,7 +79,7 @@ const report = async ({reportReason}) => {
         title:selUser.title,
         content:selUser.content,
         reportReason:reportReason,
-        boardNo:selUser.boardNo
+        postNo:selUser.postNo
       },
       {
         withCredentials: true 
@@ -147,7 +147,7 @@ const addPost = async () => {
           <div className="post-header">
             <h3>{post.reportCount >= 5 ? '신고 접수로 게시가 중단된 글입니다.' : post.title}</h3>
            {post.reportCount < 5 && (
-            <button onClick={() => handleClickUser(post.boardNo)}
+            <button onClick={() => handleClickUser(post.postNo)}
             className="report-button" disabled={post.reportCount>=5}
             >
               신고<PiSirenDuotone color='red'/>
