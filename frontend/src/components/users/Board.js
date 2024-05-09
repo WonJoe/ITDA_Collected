@@ -4,6 +4,7 @@ import './board.css';
 import { PiSirenDuotone } from "react-icons/pi";
 import Report from './Report';
 import address from '../../API_KEY'
+import { FaKeyboard } from "react-icons/fa";
 
 function Board() {
   const [posts, setPosts] = useState([]);
@@ -121,23 +122,23 @@ const addPost = async () => {
   
   return (
     <div className="board-container">
-      <h1 className="board-title">게시판</h1>
-      <div className="board-input-area">
-        <input
+      <h1 className="board-title"><FaKeyboard style={{color:'red',marginBottom:'10px'}}/></h1>
+      <div className="board-input-area" style={{justifyContent: 'center'}}>
+        <input style={{border : '1px solid red',marginRight:'35px'}}
           type="text"
           value={inputTitle}
           onChange={(e) => setInputTitle(e.target.value)}
           placeholder="제목을 입력하세요"
           className="board-input"
         />
-        <input
+        <input style={{border : '1px solid red',marginRight:'35px'}}
           type="text"
           value={inputContent}
           onChange={(e) => setInputContent(e.target.value)}
           placeholder="내용을 입력하세요"
           className="board-input"
         />
-        <button onClick={addPost} className="board-button">게시</button>
+        <button onClick={addPost} style={{border : '1px solid red'}} className="board-button">게시</button>
       </div>
       <div>
         {

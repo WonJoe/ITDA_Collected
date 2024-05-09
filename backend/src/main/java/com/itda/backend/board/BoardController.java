@@ -13,6 +13,7 @@ import com.itda.backend.users.UsersService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -24,6 +25,7 @@ public class BoardController {
     @Autowired
     private UsersService usersService;
 
+    @CrossOrigin
     @PostMapping("/write")
     public Board write(@RequestBody Board request) {
 
@@ -43,6 +45,7 @@ public class BoardController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/posts")
     public ResponseEntity<List<Board>> findAll() {
         List<Board> board = boardService.findAll();

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
@@ -70,7 +71,7 @@ const Header = ({ user, handleLogout, isLoading }) => {
 
             {user && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <NavDropdown className="nav-dropdown-item" title={`${user.userName} 님 반갑습니다.  `}>
+                    <NavDropdown className="nav-dropdown-item" title={`${user.userName} 님  `}>
                         <NavDropdown.Item className="nav-dropdown-item"><IoDiamondOutline /> {user.diaQty.toLocaleString()}</NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to="/charge" className="nav-dropdown-item">다이아 구매</NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to="/basket" className="nav-dropdown-item">구매 목록</NavDropdown.Item>

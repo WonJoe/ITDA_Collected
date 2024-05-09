@@ -1,6 +1,7 @@
 package com.itda.backend.req_meet;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,7 @@ public class Req_controller {
     @Autowired
     private UsersService usersService;
 
+    @CrossOrigin
     @PostMapping("/send_request")
     public Req_meet sendRequest(@RequestBody Req_meetRequest request) {
 
@@ -46,17 +48,20 @@ public class Req_controller {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/requests")
     public List<Req_meet> getRequests() {
         return req_meetService.getRequests();
     }
 
+    @CrossOrigin
     @GetMapping("/request_status")
     public Req_meet getStatus(HttpSession session, @RequestParam("recipientUserId") String recipientUserId) {
         String senderUserId = (String) session.getAttribute("userId");
         return req_meetService.getRequestStatus(senderUserId, recipientUserId);
     }
 
+    @CrossOrigin
     @PostMapping("/accept_request")
     public Meet_schedule acceptRequest(@RequestBody Map<String, String> requestData) {
         String senderUserId = requestData.get("senderUserId");
@@ -65,6 +70,7 @@ public class Req_controller {
         return req_meetService.meetSchedules(senderUserId, recipientUserId);
     }
 
+    @CrossOrigin
     @PostMapping("/reject_request")
     public void rejectRequest(@RequestBody Map<String, String> requestData) {
         String senderUserId = requestData.get("senderUserId");
@@ -73,6 +79,7 @@ public class Req_controller {
         req_meetService.meetReject(senderUserId, recipientUserId);
     }
 
+    @CrossOrigin
     @GetMapping("/schedule")
     public List<Meet_schedule> schedule(HttpSession session) {
         String recipient = (String) session.getAttribute("userId");

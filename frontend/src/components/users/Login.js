@@ -5,6 +5,7 @@ import './Login.css'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useHistory } from 'react-router-dom';
+import { BiSolidDoorOpen } from "react-icons/bi";
 
 
 const Login = ({ setLoggedInUser }) => {
@@ -62,7 +63,7 @@ const Login = ({ setLoggedInUser }) => {
 
     <div className='loginForm'>
       <br/>
-      <h2 style={{fontWeight: 'bold'}}>로그인</h2>
+      <h2 style={{fontWeight: 'bold'}}><BiSolidDoorOpen/></h2>
       <br/>
       <Form.Floating className="mb-3">
         <Form.Control
@@ -87,8 +88,10 @@ const Login = ({ setLoggedInUser }) => {
       <br/>
       <br/>
       {error && <p style={{color: 'red'}}>{error}</p>}
+      <div >
       <Button className='loginButton' onClick={handleLogin}>로그인</Button>
       <Button className='loginButton' onClick={handlecreateUser}>회원가입</Button>
+      </div>
     </div>
   );
 };

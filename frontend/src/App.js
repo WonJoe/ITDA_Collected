@@ -1,7 +1,7 @@
 import "./App.css"
 import { Container } from "react-bootstrap";
 import Header from "./components/Header";
-import { Route,Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Route,Redirect,useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import Login from "./components/users/Login";
 import UserList from "./components/users/UserList";
 import { useState,useEffect } from "react";
@@ -35,6 +35,7 @@ import WeatherAndFashion from "./components/pages/WeatherAndFashion";
 
 
 function App() {
+  const location = useLocation();
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   const [user, setUser] = useState(null);
@@ -107,7 +108,7 @@ function App() {
 
       </Container>
       {isLoading && <Loading/>} {/* 로딩 중일 때만 Loading 컴포넌트를 렌더링 */}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

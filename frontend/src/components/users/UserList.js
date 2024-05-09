@@ -4,9 +4,8 @@ import UserModal from './UserModal';
 import './UserModal.css';
 import './board.css';
 import address from '../../API_KEY'
-import { BsEnvelopePaperHeart } from "react-icons/bs";
-import './UserList.css'
 import { GoChevronUp } from "react-icons/go";
+import './UserList.css'
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -15,14 +14,26 @@ const UserList = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleScroll = () => {
-    const scrollY = window.scrollY;
-    if (scrollY > 100) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 100) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    
+  
+    window.addEventListener('scroll', handleScroll);
+  
+    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); // 빈 배열을 전달하여 이펙트가 한 번만 실행되도록 함
+  
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -31,8 +42,6 @@ const UserList = () => {
     });
   };
 
-  // 페이지가 스크롤될 때마다 상태 업데이트
-  window.addEventListener('scroll', handleScroll);
 
   useEffect(() => {
     checkLoginStatus();
@@ -87,19 +96,19 @@ const UserList = () => {
   return (
     <div>
       {isVisible && (
-        <div className='tabscroll' onClick={scrollToTop}><GoChevronUp style={{fontSize:'25px'}} /></div>
-      )}
-            <img src='./userListBg/service.png' alt='service' style={{marginTop:'100px'}}/>
-      <img src='./userListBg/bg2.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
-      <img src='./userListBg/bg3.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
+  <div className='tabscroll' onClick={scrollToTop}>
+    <GoChevronUp style={{fontSize:'25px'}} />
+  </div>
+)}
+      <img src='./image/detail1.png' alt='service' style={{width:'100%', marginTop:'100px'}}/>
+      <img src='./image/detail2.png' alt='service' style={{width:'100%', marginTop:'100px'}}/>
+      <img src='./image/detail3.png' alt='service' style={{width:'100%', marginTop:'100px'}}/>
       <div id="carouselExample" className="carousel slide" style={{marginLeft:'0px'}}>
         <br/>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src="./userListBg/slide1.png" className="d-block w-100" alt="slide1"/>
           </div>
           <div className="carousel-item">
-            <img src="./userListBg/slide2.png" className="d-block w-100" alt="slide2" />
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -111,7 +120,6 @@ const UserList = () => {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-      <img src='./userListBg/bg4.png' alt='service' style={{width:'1400px', marginTop:'100px'}}/>
     <div className="board-container" style={{marginBottom:'100px', marginTop:'100px'}} >
       <ul className='user-ul'>
         {Array.isArray(users) && users.map((user) => (

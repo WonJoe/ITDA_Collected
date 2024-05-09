@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import address from '../../API_KEY'
 import { useHistory } from 'react-router-dom';
+import QnaHeader from '../image/QnaHeader.png';
 
 
 const CSBoardWrite = () => {
@@ -59,8 +60,10 @@ const CSBoardWrite = () => {
   };
 
   return (
-    <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' }}>
-      <h2>문의 하기</h2>
+    <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,border: '2px solid ',color:'red',marginBottom:'60px'}}>
+       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <img style={{ height: '300px' }} src={QnaHeader} alt="Qna Header" />
+  </div>
       <form onSubmit={handleSubmit}>
         {/* 임시 히든 */}
       <input
@@ -70,25 +73,29 @@ const CSBoardWrite = () => {
           />
 
         <div>
-          <input
+          <input style={{border: '2px solid ',color:'#575757' ,margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' ,backgroundColor:'transparent'}}
             type="text"
             id="boardSubject"
             value={board.boardSubject}
             onChange={handleChange}
-            placeholder="제목을 입력하셈"
+            placeholder="Title"
           />
         </div>
         <div>
-          <textarea
+          <input style={{width:'500px',height:'300px',border: '2px solid ',color:'#575757' ,margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' ,backgroundColor:'transparent'}}
+          type="text"
             id="boardContent"
             value={board.boardContent}
             onChange={handleChange}
-            placeholder="글 내용쓰셈"
+            placeholder=" 주의 : 부적절한 문의나 욕설, 비방글 등은 삭제될 수 있습니다."
           />
         </div>
         <div>
-          <button type="submit" style={{ margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>등록</button>
-          <button type="button" style={{ margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }} onClick={handleCancel}>취소</button>
+          <button type="submit" style={{border: '2px solid red',color:'red' ,margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' ,backgroundColor:'transparent'}}>등록</button>
+          <button type="button" style={{border: '2px solid red',color:'red' ,margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' ,backgroundColor:'transparent'}} onClick={handleCancel}>취소</button>
+        </div>
+        <div style={{marginBottom:'50px'}}>
+
         </div>
       </form>
     </div>

@@ -43,16 +43,19 @@ public class IamportController {
 
     private IamportClient iamportClient;
 
+    @CrossOrigin
     @PostConstruct
     public void init() {
         this.iamportClient = new IamportClient(restApiKey, restApiSecret);
     }
 
+    @CrossOrigin
     @PostMapping("/verifyIamport/{imp_uid}")
     public IamportResponse<Payment> paymentByImpUid(@PathVariable("imp_uid") String imp_uid) throws IamportResponseException, IOException {
         return iamportClient.paymentByImpUid(imp_uid);
     }
 
+    @CrossOrigin
     @PostMapping("/purchase")
     public ResponseEntity<?> purchase(@RequestBody Iamport iamport) {
 
@@ -80,6 +83,7 @@ public class IamportController {
         return purchaseentity;
     }
     
+    @CrossOrigin
     @PostMapping("/orderlist")
     public ResponseEntity<?> getList(@RequestBody Iamport iamport) {
         

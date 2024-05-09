@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.itda.backend.board.Board;
 import com.itda.backend.users.Users;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -21,6 +22,7 @@ public class ReportController {
     @Autowired
     private ReportService reportService;
 
+    @CrossOrigin
     @PostMapping("/users")
     public Report reportHandle(@RequestBody Report request) {
 
@@ -51,6 +53,7 @@ public class ReportController {
         }
     }
 
+    @CrossOrigin
     @GetMapping("/getUser")
     public Board getUser(@RequestParam Long postNo) {
         return reportService.findByPostNo(postNo);

@@ -43,6 +43,7 @@ public class PaymentController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+    @CrossOrigin
     @GetMapping(value = "/")
     public String HOME() {
 
@@ -52,6 +53,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("/api/add")
     public String postMethodName(@ModelAttribute TestDTO dto, HttpSession session) throws Exception {
 
@@ -79,6 +81,7 @@ public class PaymentController {
         return "success";
     }
 
+    @CrossOrigin
     @GetMapping("/api/getList")
     public Map<String, Object> getList(HttpSession session) throws Exception {
 
@@ -94,6 +97,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("/api/login")
     public Map<String, Object> login(@RequestBody TestDTO dto, HttpServletResponse response, HttpSession session)
             throws Exception {
@@ -125,6 +129,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @GetMapping("/api/logout")
     public Map<String, Object> logout(HttpSession session) {
 
@@ -135,6 +140,7 @@ public class PaymentController {
         return res;
     }
 
+    @CrossOrigin
     @PostMapping("/api/messages")
     public String sendMessage(@RequestBody ChatDTO dto) throws Exception {
 
@@ -154,6 +160,7 @@ public class PaymentController {
     }
 
     // 메시지 로딩
+    @CrossOrigin
     @GetMapping("/api/messages/{senderId}/{receiverId}")
     public List<ChatDTO> fetchMessages(@PathVariable String senderId, @PathVariable String receiverId)
             throws Exception {
@@ -167,6 +174,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("/api/ranMessages")
     public String ranMessage(@RequestBody ChatDTO dto) throws Exception {
 
@@ -185,6 +193,7 @@ public class PaymentController {
         return "succese";
     }
 
+    @CrossOrigin
     @PostMapping("/api/setChatStatus")
     public String status(@RequestBody TestDTO dto) throws Exception {
 
@@ -199,6 +208,7 @@ public class PaymentController {
     }
 
     // 랜덤채팅 인원 찾기
+    @CrossOrigin
     @PostMapping("/api/findUser")
     public ResponseEntity<?> find(@RequestBody TestDTO dto) throws Exception {
 
@@ -218,6 +228,7 @@ public class PaymentController {
         return ResponseEntity.ok(randomUser);
     }
 
+    @CrossOrigin
     @GetMapping("/api/ranChatList/{senderId}")
     public List<ChatDTO> ranChatList(@PathVariable String senderId) throws Exception {
 
@@ -236,6 +247,7 @@ public class PaymentController {
     }
 
     // 메시지 로딩
+    @CrossOrigin
     @GetMapping("/api/ranMessages/{senderId}/{receiverId}")
     public List<ChatDTO> ranhMessages(@PathVariable String senderId, @PathVariable String receiverId) throws Exception {
 
@@ -248,6 +260,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("api/addToCart")
     public String postMethodName(@RequestBody CartDTO dto) throws Exception {
 
@@ -260,6 +273,7 @@ public class PaymentController {
         return "success";
     }
 
+    @CrossOrigin
     @GetMapping("api/basketList")
     public List<CartDTO> baskeList(HttpSession session) throws Exception {
 
@@ -274,6 +288,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @PostMapping("api/paymentReady")
     public String paymentReady(@RequestBody PayDTO dto) throws Exception {
 
@@ -286,6 +301,7 @@ public class PaymentController {
         return "success";
     }
 
+    @CrossOrigin
     @PostMapping("/api/processPayments")
     public ResponseEntity<String> processPayments(@RequestBody PaymentDTO dto) throws Exception {
 
@@ -312,6 +328,7 @@ public class PaymentController {
 
     }
 
+    @CrossOrigin
     @GetMapping("/api/payList")
     public ResponseEntity<?> payList(HttpSession session) throws Exception {
 

@@ -29,7 +29,7 @@ public class CsvToDatabaseService {
             String[] parts = line.split(","); // CSV 파일 쉼표로 구분
     
             // 첫 번째 열이 "Image"이고 두 번째 열이 null이 아닌 경우에만 데이터를 저장
-            if (!parts[0].equalsIgnoreCase("\"Image\"") && parts.length > 1 && parts[1] != null && !parts[1].isEmpty()) {
+            if (!parts[0].equalsIgnoreCase("\"Image\"") && !parts[1].equalsIgnoreCase("\"Description\"") && parts.length > 1 && parts[1] != null && !parts[1].isEmpty()) {
                 Fashion fashion = Fashion.builder()
                         .image(parts[0])
                         .description(parts[1])

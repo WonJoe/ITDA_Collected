@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 // import org.springframework.security.core.Authentication;
 // import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ public class CSAnswerController {
 
     private final CSAnswerService csAnswerService;
 
+    @CrossOrigin
     @PostMapping("/answer/write")
     public ResponseEntity<Void> answerWrite(@RequestBody CSAnswerEntity entity) {
         System.out.println("보드 컨트롤러 실행");
@@ -32,6 +34,7 @@ public class CSAnswerController {
         return ResponseEntity.ok().build();
     }
 
+    @CrossOrigin
     @GetMapping("/answer/list")
     public ResponseEntity<List<CSAnswerEntity>> answerList() {
         System.out.println("엔써 리스트 요청 실행");
@@ -39,6 +42,7 @@ public class CSAnswerController {
         return ResponseEntity.ok(answerList);
     }
 
+    @CrossOrigin
     @GetMapping("/answerDetail")
     public ResponseEntity<CSAnswerEntity> getAnswerDetail(@RequestParam String answerNo) {
         Long number = Long.parseLong(answerNo);
@@ -46,6 +50,7 @@ public class CSAnswerController {
         return ResponseEntity.ok(answer);
     }
 
+    @CrossOrigin
     @PostMapping("/answerEdit")
     public ResponseEntity<Void> editAnswer(@RequestBody CSAnswerEntity entity) {
         System.out.println("컨트롤러 시작");

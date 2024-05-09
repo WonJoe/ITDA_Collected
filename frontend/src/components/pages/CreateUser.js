@@ -102,7 +102,7 @@ const CreateUser = ({ setIsLoading } ) => {
           withCredentials: true,
         }
       );
-      history.push('/Complete');
+      history.push('/home');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -183,7 +183,7 @@ const handleFileChange = (e) => {
         <Form.Group className="mb-3">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             name="users.userPassword"
             value={createData.users.userPassword}
             onChange={handleChange}
@@ -261,7 +261,7 @@ const handleFileChange = (e) => {
 <br/><br/>
 
         <Form.Group className="mb-3">
-          <Form.Label>나이</Form.Label>
+          <Form.Label>생년월일</Form.Label>
           <Form.Control
             type="text"
             name="users.userAge"

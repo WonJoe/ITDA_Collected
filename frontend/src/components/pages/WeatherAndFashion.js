@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import key from '../../apikey.js';
 import axios from 'axios';
 import address from '../../API_KEY';
+import './WeatherAndFashion.css';
+// import './Weather.css';
+import './Weather.css';
 
 
 const cityNamesMap = {
@@ -23,7 +26,7 @@ const cityNamesMap = {
 const WeatherAndFashion = () => {
     const [currentTime, setCurrentTime] = useState('');
     const [weatherData, setWeatherData] = useState(null);
-    const [cityName, setCityName] = useState('Seoul');
+    const [cityName, setCityName] = useState('');
     const [fashionData, setFashionData] = useState([]);
 
     useEffect(() => {
@@ -31,6 +34,7 @@ const WeatherAndFashion = () => {
             const now = new Date();
             const month = now.getMonth() + 1;
             const date = now.getDate();
+            
             return `${month}월 ${date}일 `;
         };
 
@@ -84,37 +88,71 @@ const WeatherAndFashion = () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={cityName} onChange={(e) => setCityName(e.target.value)} placeholder="지역명을 입력해주세요" />
-            </form>
-            <span className="nowtime">{currentTime}</span>
-            <span>현재날씨</span>
-            <h3>{cityName}</h3>
+        
+        <div style={{ margin: 'auto' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'center' }}>
+    <div>
+        <input type="text" value={cityName} className="weather_InputContainer" onChange={(e) => setCityName(e.target.value)} placeholder="지역명을 입력해주세요" />
+    </div>
+</form>
+
+            
+            {/* <span className="nowtime">{currentTime}</span> */}
+            {/* <span className='weather_under'>현재날씨</span> */}
             {weatherData && (
-                <div>
-                    <h3>{weatherData.weather[0].description}</h3>
-                    <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description}/>
-                    <h3>현재기온: {weatherData.main.temp}</h3>
-                    <h3>최저기온: {weatherData.main.temp_min}</h3>
-                    <h3>최대기온: {weatherData.main.temp_max}</h3>
+                <div style={{textAlign: 'center'}}>
+                    {/* <h3>{weatherData.weather[0].description}</h3>
+                    <img src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt={weatherData.weather[0].description} width={150} height={150} /> */}
+
+
+{/* @@@@@ */}
+
+                <div class="cmp-cur-weather wbg wbg-type2 BGDB00">
+                    {/* <h3 class="hid">현재 날씨</h3>	 */}
+                    <ul class="wrap-1">
+                        <li class="w-icon w-temp no-w">
+                            <span class="hid">{currentTime}{cityName}의 기온 </span><span class="wic DB00 large"></span>
+                            {/* <span class="hid"> : </span><span class="tmp">19.0<small>℃</small> <span class="minmax"><span>최저</span><span>-</span><span>최고</span><span>-</span></span></span> */}
+                            {/* <span class="chill">체감(18.3℃)</span> */}
+                        </li>
+		
+			
+		
+	</ul>
+	<ul class="wrap-2 no-underline">
+		<li><span class="lbl ic-hm">현재 기온<small>&nbsp;</small></span><span class="val">{weatherData.main.temp}℃</span></li>
+		
+		<li><span class="lbl ic-wind">최저 기온<small>&nbsp;</small></span><span class="val">{weatherData.main.temp_min}℃</span></li>
+		
+		<li><span class="lbl rn-hr1 ic-rn">최대 기온</span><span class="val">{weatherData.main.temp_max}℃</span></li>
+	</ul>
+</div>
+
+                    {/* <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%', margin: 'auto', marginTop: '10px' }}>
+                        <h3 style={{ marginRight: '20px' }}>현재기온: {weatherData.main.temp}</h3>
+                        <h3 style={{ marginRight: '20px' }}>최저기온: {weatherData.main.temp_min}</h3>
+                        <h3>최대기온: {weatherData.main.temp_max}</h3>
+                    </div> */}
                 </div>
             )}
-            <div>
-                <button onClick={handleFashionButtonClick}>추천 데이트룩 조회</button>
-            </div>
-            <div>
-                <h1>추천 패션 리스트</h1>
-                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {fashionData.map((item, index) => (
-                        <div key={index} style={{ marginRight: '20px' }}>
-                            <h4>{item.description}</h4>
-                            <img src={item.image} alt={item.description} width={150} />
-                        </div>
-                    ))}
+            <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' }}>
+                <div>
+                    <button onClick={handleFashionButtonClick} className='datalook_button'>STYLING</button>
+                </div>
+                <div>
+                    <div style={{ display: 'flex',justifyContent:'center', flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {fashionData.map((item, index) => (
+                            <div key={index} style={{ marginRight: '20px', marginBottom: index % 4 === 3 ? '20px' : '0', width: '23%' }}>
+                                <img src={item.image} alt={item.description} width={150} />
+                                <h6 className='desc'>{item.description}</h6>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
+            
         </div>
+        
     );
 };
 

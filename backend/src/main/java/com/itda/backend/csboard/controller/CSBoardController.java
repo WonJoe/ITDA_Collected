@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +24,7 @@ public class CSBoardController {
 
     private final CSBoardService boardService;
 
+    @CrossOrigin
     @PostMapping("/board/write")
     public ResponseEntity<Void> boardWrite(@RequestBody CSBoardEntity entity, HttpSession session) {
 
@@ -33,12 +35,14 @@ public class CSBoardController {
 
     }
 
+    @CrossOrigin
     @GetMapping("/board/list")
     public ResponseEntity<List<CSBoardEntity>> boardList() {
         List<CSBoardEntity> boardList = boardService.boardList();
         return ResponseEntity.ok(boardList);
     }
 
+    @CrossOrigin
     @GetMapping("/boardDetail")
     public ResponseEntity<CSBoardEntity> getBoardDetail(@RequestParam String boardNo) {
         Long number = Long.parseLong(boardNo);
@@ -46,6 +50,7 @@ public class CSBoardController {
         return ResponseEntity.ok(board);
     }
 
+    @CrossOrigin
     @PostMapping("/board/edit")
     public ResponseEntity<Void> editBoard(@RequestBody CSBoardEntity entity) {
         boardService.editBoard(entity);

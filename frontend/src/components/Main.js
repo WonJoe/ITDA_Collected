@@ -6,7 +6,7 @@ const Main = () => {
 
   useEffect(() => {
     // 이미지 슬라이드 쇼 설정
-    const images = ['./image/show2.png', './image/show3.png', './image/show5.png', './image/show6.png'];
+    const images = ['./image/show2.png', './image/show3.png', './image/show4.png', './image/show5.png', './image/show6.png'];
     const displayTimes = [2500,2500,2500,3500, 4000]; // 각 이미지에 대한 노출 시간 (밀리초)
     let currentImageIndex = 0;
 

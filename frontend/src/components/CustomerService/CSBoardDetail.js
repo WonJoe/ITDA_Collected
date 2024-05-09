@@ -59,18 +59,19 @@ const CSBoardDetail = () => {
 
   return (
     
-    <div>
-      <h2>BoardDetail</h2>
-      <div>글번호 : {boardDetail.boardNo}</div>
-      <div>아이디 : {boardDetail.userId}</div>
-      <div>제목 : {boardDetail.boardSubject}</div>
-      <div>작성일 : {boardDetail.createdAt}</div>
-      <div>내용 : {boardDetail.boardContent}</div>
-      <div>
-        <button onClick={handleAnswerEdit}>
+    <div >
+      <h2 style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,border: '2px solid ',color:'red',marginBottom:'60px' ,justifyContent:'center'}}>BoardDetail</h2>
+      <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,border: '2px solid ',color:'red',marginBottom:'30px'}}>
+      <div>NO.   {boardDetail.boardNo}</div>
+      <div>ID.   {boardDetail.userId}</div>
+      <div>Title.   {boardDetail.boardSubject}</div>
+      <div>Date.   {boardDetail.createdAt}</div>
+      <div>문의내용   {boardDetail.boardContent}</div></div>
+      <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,marginBottom:'60px' ,justifyContent:'center'}}>
+        <button  className='csboard_button' onClick={handleAnswerEdit} style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,border: '2px solid ',color:'red'}}>
           수정하기
         </button>
-        <button onClick={handleAnswerWrite}>
+        <button className='csboard_button' onClick={handleAnswerWrite} style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' ,border: '2px solid ',color:'red',marginBottom:'60px'}}>
           답글달기
           
         </button>

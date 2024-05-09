@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom'; // useHistory 추가
 import BoardItem from './CSBoardItem';
 import AnswerItem from './CSAnswerItem';
 import address from '../../API_KEY'
+import { BsBalloonHeart } from "react-icons/bs";
+import { BsBalloonHeartFill } from "react-icons/bs";
 
 function CSBoardList() {
   const [boardList, setBoardList] = useState([]);
@@ -40,16 +42,18 @@ function CSBoardList() {
   };
 
   return (
-    <div style={{ width: '80%', margin: 'auto', marginTop: '50px', textAlign: 'center' }}>
-      <h2>QnA</h2>
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', borderBottom: '2px solid black', padding: '10px' }}>
-        <div style={{ width: '20%' }}>FAQ Number</div>
+    <div>
+   
+ <div style={{ width: '100%', margin: 'auto', textAlign: 'center' }}>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', borderBottom: '2px solid red', padding: '10px' }}>
+        <div style={{ width: '20%' }}>No.</div>
         <div style={{ width: '60%' }}>Title</div>
         <div style={{ width: '20%' }}>ID</div>
         <div style={{ width: '20%' }}>Date</div>
       </div>
       {boardList.length === 0 ? (
-        <div style={{ fontSize: '35px', margin: '20px 0' }}>게시글이 없습니다</div>
+        <div style={{ fontSize: '25px', margin: '20px 0' }}>게시글이 없습니다</div>
       ) : (
         boardList.map((boardItem, index) => (
           <div key={boardItem.boardNo}>
@@ -66,7 +70,10 @@ function CSBoardList() {
           </div>
         ))
       )}
-      <button type="button" style={{ margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }} onClick={handleInquiryButtonClick}>문의하기</button>
+      <div style={{marginBlock:'100px'}}>
+      <button type="button" style={{border: '2px solid red',color:'red' ,margin: '20px', padding: '10px 20px', fontSize: '16px', cursor: 'pointer' ,backgroundColor:'transparent'}} onClick={handleInquiryButtonClick}>문의하기</button>
+      </div>   
+    </div>
     </div>
   );
 }

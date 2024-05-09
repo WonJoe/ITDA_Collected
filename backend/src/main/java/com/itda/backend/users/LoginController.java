@@ -37,6 +37,7 @@ public class LoginController {
         return new ResponseEntity<>(locationService.save(users, location), HttpStatus.OK);
     }
 
+    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials, HttpSession session) {
         String userId = credentials.get("userId");
@@ -57,6 +58,7 @@ public class LoginController {
         return ResponseEntity.ok(responseData);
     }
 
+    @CrossOrigin
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpSession session) {
         session.removeAttribute("userName");

@@ -1,6 +1,5 @@
 package com.itda.backend.fashion;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CsvController {
 
@@ -17,12 +15,12 @@ public class CsvController {
 
     private CsvToDatabaseService csvToDatabaseService; // final 추가하기
 
-    @Autowired
     public CsvController(@Value("${fashionPath}") String fashionPath, CsvToDatabaseService csvToDatabaseService) {
         this.fashionPath = fashionPath;
         this.csvToDatabaseService = csvToDatabaseService;
     }
 
+    @CrossOrigin
     @GetMapping("/csvToDatabase")
     public String csvToDatabase() {
         try {

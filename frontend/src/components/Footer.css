@@ -1,5 +1,10 @@
+
+
+
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
 * {
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,73 +12,101 @@
 body {
   font-family: "Poppins", sans-serif;
   min-height: 100vh;
-  display: block;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* 수정: 중앙 정렬을 위해 flex 사용 */
+  align-items: center; /* 수정: 수직 가운데 정렬 */
+  justify-content: center; /* 수정: 수평 가운데 정렬 */
 }
 
 .site-footer {
-  /* position: fixed;
-  bottom: 0%;
-  width: 100%; */
-  background-color: none;
+  background-color: transparent;
+  text-decoration: none;
   padding: 15px 0 10px;
   font-size: 15px;
   line-height: 24px;
-  color: #000;
-  box-shadow: 0 10px 20px #000(0, 0, 0, 0.5);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   height: 200px;
+  text-align: center;
+  box-shadow: none;
 }
+
+.site-footer-else {
+  background-color: red;
+  text-decoration: none;
+  padding: 15px 0 10px;
+  font-size: 15px;
+  line-height: 24px;
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  height: 200px;
+  text-align: center;
+}
+
+
 .site-footer hr {
-  border-top-color: #000;
+  border-top-color: #fff;
+  opacity: 0.5;
+}
+.site-footer-else hr {
+  border-top-color: #fff;
   opacity: 0.5;
 }
 .site-footer hr.small {
   margin: 20px 0;
 }
+.site-footer-else hr.small {
+  margin: 20px 0;
+}
 .site-footer h6 {
-  color: #000;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  letter-spacing: 2px;
+}
+.site-footer-else h6 {
+  color: #fff;
   font-size: 16px;
   text-transform: uppercase;
   margin-top: 5px;
   letter-spacing: 2px;
 }
 .site-footer a {
-  color: #000;
-}
-.site-footer a:hover {
-  color: #000;
+  color: #fff;
   text-decoration: none;
 }
+.site-footer-else a {
+  color: #fff;
+  text-decoration: none;
+}
+.site-footer a:hover {
+  color: #fff;
+}
+.site-footer-else a:hover {
+  color: #fff;
+}
 .footer-links {
-    /* display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex; */
-    list-style: none;
-    padding: 24px 0 24px;
-    gap: 2px 0px;
-    /* -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column; */
-    width: 100%;
+  list-style: none;
+  padding: 24px 0 24px;
+  gap: 2px 0px;
+  text-decoration: none;
+  width: 100%;
+  text-align: center; /* 수정: 텍스트 가운데 정렬 */
 }
 .footer-links li {
   display: inline;
   margin-right: 10px;
   margin-left: 10px;
-}
-.footer-links a {
-  color: #000;
+  text-decoration: none;
 }
 .footer-links a:active,
 .footer-links a:focus,
 .footer-links a:hover {
-  color: #000;
-  text-decoration: none;
+  color: #fff;
+  text-decoration: underline;
 }
 .site-footer .social-icons {
-  text-align: right;
+  text-align: center; /* 수정: 소셜 아이콘 가운데 정렬 */
 }
 .site-footer .social-icons a {
   width: 40px;
@@ -82,10 +115,11 @@ body {
   margin-left: 6px;
   margin-right: 0;
   border-radius: 100%;
-  /* background-color: #33353d; */
 }
 .copyright-text {
   margin: 0;
+  text-align: center; /* 수정: 텍스트 가운데 정렬 */
+  padding-bottom: 20px;
 }
 @media (max-width: 991px) {
   .site-footer [class^="col-"] {
@@ -101,14 +135,30 @@ body {
     text-align: center;
   }
 }
+@media (max-width: 991px) {
+  .site-footer-else [class^="col-"] {
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 767px) {
+  .site-footer-else {
+    padding-bottom: 0;
+  }
+  .site-footer-else .copyright-text,
+  .site-footer-else .social-icons {
+    text-align: center;
+  }
+}
 .social-icons {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+
 }
 .social-icons li {
   display: inline-block;
   margin-bottom: 4px;
+  background-color: transparent;
 }
 .social-icons a {
   background-color: transparent;
@@ -126,8 +176,11 @@ body {
   transition: all 0.2s linear;
 }
 .logo {
-  color: #eb6857;
+  color: #fff;
 }
+
+
+
 .social-icons a:active,
 .social-icons a:focus,
 .social-icons a:hover {
